@@ -12,6 +12,7 @@ import Tag from "../types/Tag.tsx";
 import SecurityRequirementTable from './security-requirements/SecurityRequirementsTable.tsx';
 import SecurityRequirement from '../types/SecurityRequirement.tsx';
 import TagsTable from './tags/TagsTable.tsx';
+import DataAssetsTable from './data-assets/DataAssetsTable.tsx';
 
 type FormValues = {
   firstName: string;
@@ -24,10 +25,10 @@ export default function ThreatAgile() {
   const [abuseCases, setAbuseCases] = useState<AbuseCase[]>([]);
   const [securityRequirementsList, setSecurityRequirementsList] = useState<SecurityRequirement[]>([]);
   const [tagsList, setTagsList] = useState<Tag[]>([]);
+  const [dataAssetsList, setDataAssetsList] = useState<Tag[]>([]);
 
   const onSubmit = (data: FormValues) => {
     setFormData({ ...data, questions, abuse_cases: abuseCases });
-    console.log(formData);
     console.log({ ...data, questions, abuse_cases: abuseCases });
   };
 
@@ -174,6 +175,13 @@ export default function ThreatAgile() {
           <TagsTable
             tagsList={tagsList}
             setTagsList={setTagsList}
+          />
+        </Grid>
+
+        <Grid item xs={12} md={6}  maxWidth="lg">
+          <DataAssetsTable
+            dataAssetsList={dataAssetsList}
+            setDataAssetsList={setDataAssetsList}
           />
         </Grid>
 
