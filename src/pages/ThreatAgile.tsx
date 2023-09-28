@@ -1,5 +1,5 @@
 //@ts-ignore
-import React from 'react';
+import React from "react";
 import { Box, Button, Grid, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import QuestionsTable from "./questions/QuestionsTable.tsx";
@@ -9,10 +9,12 @@ import Question from "../types/Question";
 import AbuseCasesTable from "./abuse-cases/AbuseCasesTable.tsx";
 import AbuseCase from "../types/AbuseCase.tsx";
 import Tag from "../types/Tag.tsx";
-import SecurityRequirementTable from './security-requirements/SecurityRequirementsTable.tsx';
-import SecurityRequirement from '../types/SecurityRequirement.tsx';
-import TagsTable from './tags/TagsTable.tsx';
-import DataAssetsTable from './data-assets/DataAssetsTable.tsx';
+import SecurityRequirementTable from "./security-requirements/SecurityRequirementsTable.tsx";
+import SecurityRequirement from "../types/SecurityRequirement.tsx";
+import TagsTable from "./tags/TagsTable.tsx";
+import DataAssetsTable from "./data-assets/DataAssetsTable.tsx";
+import RiskTrackingTable from "./rsk-tracking/RiskTrackingTable.tsx";
+import RiskTracking from "../types/RiskTracking.tsx";
 
 type FormValues = {
   firstName: string;
@@ -23,9 +25,12 @@ export default function ThreatAgile() {
   const { register, handleSubmit } = useForm<any>();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [abuseCases, setAbuseCases] = useState<AbuseCase[]>([]);
-  const [securityRequirementsList, setSecurityRequirementsList] = useState<SecurityRequirement[]>([]);
+  const [securityRequirementsList, setSecurityRequirementsList] = useState<
+    SecurityRequirement[]
+  >([]);
   const [tagsList, setTagsList] = useState<Tag[]>([]);
   const [dataAssetsList, setDataAssetsList] = useState<Tag[]>([]);
+  const [riskTrackingList, setRiskTrackingList] = useState<RiskTracking[]>([]);
 
   const onSubmit = (data: FormValues) => {
     setFormData({ ...data, questions, abuse_cases: abuseCases });
@@ -172,16 +177,20 @@ export default function ThreatAgile() {
           />
         </Grid>
         <Grid>
-          <TagsTable
-            tagsList={tagsList}
-            setTagsList={setTagsList}
-          />
+          <TagsTable tagsList={tagsList} setTagsList={setTagsList} />
         </Grid>
 
-        <Grid item xs={12} md={6}  maxWidth="lg">
+        <Grid item xs={12} md={6} maxWidth="lg">
           <DataAssetsTable
             dataAssetsList={dataAssetsList}
             setDataAssetsList={setDataAssetsList}
+          />
+        </Grid>
+
+        <Grid item xs={12} md={6} maxWidth="lg">
+          <RiskTrackingTable
+            riskTrackingList={riskTrackingList}
+            setRiskTrackingList={setRiskTrackingList}
           />
         </Grid>
 
