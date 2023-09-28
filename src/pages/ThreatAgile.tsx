@@ -13,7 +13,7 @@ import SecurityRequirementTable from "./security-requirements/SecurityRequiremen
 import SecurityRequirement from "../types/SecurityRequirement.tsx";
 import TagsTable from "./tags/TagsTable.tsx";
 import DataAssetsTable from "./data-assets/DataAssetsTable.tsx";
-import RiskTrackingTable from "./rsk-tracking/RiskTrackingTable.tsx";
+import RiskTrackingTable from "./risk-tracking/RiskTrackingTable.tsx";
 import RiskTracking from "../types/RiskTracking.tsx";
 
 type FormValues = {
