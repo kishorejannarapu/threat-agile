@@ -4,24 +4,24 @@ import { useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import Question from "../../types/Question";
-import QuestionsModal from "./QuestionsModal";
+import Tag from "../../types/Tag";
+import QuestionsModal from "./TagsModal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 
-interface QuestionsTableProps {
-  questionsList: Question[];
-  setQuestionsList: (newState: Question[]) => void;
+interface TagssTableProps {
+  tagsList: Tag[];
+  setTagsList: (newState: Tag[]) => void;
 }
 
-const QuestionsTable: React.FC<QuestionsTableProps> = ({
-  questionsList,
-  setQuestionsList,
+const TagsTable: React.FC<TagssTableProps> = ({
+  tagsList,
+  setTagsList,
 }) => {
-  const [rows, setRows] = useState<Question[]>(questionsList);
+  const [rows, setRows] = useState<Tag[]>(tagsList);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedRow, setSelectedRow] = useState<Question | null>(null);
+  const [selectedRow, setSelectedRow] = useState<Tag | null>(null);
 
   const handleAddClick = () => {
     setSelectedRow(null);
@@ -32,7 +32,7 @@ const QuestionsTable: React.FC<QuestionsTableProps> = ({
     setIsModalOpen(false);
   };
 
-  const handleSave = (editedData: Question) => {
+  const handleSave = (editedData: Tag) => {
     if (editedData["id"] == undefined) {
       editedData.id = Math.random();
       console.log("edited Data =" + JSON.stringify(editedData));
@@ -43,16 +43,16 @@ const QuestionsTable: React.FC<QuestionsTableProps> = ({
       const updatedData = rows.map((row) =>
         row.id === selectedRow.id ? editedData : row
       );
-      setQuestionsList(updatedData);
+      setTagsList(updatedData);
       setRows(updatedData);
     } else {
       // Add new row
-      setQuestionsList([...rows, editedData]);
+      setTagsList([...rows, editedData]);
       setRows([...rows, editedData]);
     }
   };
 
-  const handleEdit = (row: Question) => {
+  const handleEdit = (row: Tag) => {
     console.log("edit row =" + JSON.stringify(row));
     setSelectedRow(row);
     setIsModalOpen(true);
@@ -62,7 +62,7 @@ const QuestionsTable: React.FC<QuestionsTableProps> = ({
     // Implement your delete logic here, e.g., make an API call to delete the item
     // After successful deletion, update your data
     const updatedData = rows.filter((row) => row.id !== id);
-    setQuestionsList(updatedData);
+    setTagsList(updatedData);
     setRows(updatedData);
   };
 
@@ -70,9 +70,8 @@ const QuestionsTable: React.FC<QuestionsTableProps> = ({
     //@ts-ignore
     { field: "id", headerName: "ID", visible: false },
     //@ts-ignore
-    { field: "question", headerName: "Question", minWidth: "450" },
+    { field: "tag", headerName: "Tag", minWidth: "720" },
     //@ts-ignore
-    { field: "answer", headerName: "Answer", minWidth: "500" },
     {
       field: "actions",
       headerName: "Actions",
@@ -115,7 +114,7 @@ const QuestionsTable: React.FC<QuestionsTableProps> = ({
           startIcon={<AddIcon />}
           onClick={handleAddClick}
         >
-          Add Question
+          Add Tag
         </Button>
       </legend>
       <DataGrid
@@ -147,4 +146,4 @@ const QuestionsTable: React.FC<QuestionsTableProps> = ({
   );
 };
 
-export default QuestionsTable;
+export default TagsTable;

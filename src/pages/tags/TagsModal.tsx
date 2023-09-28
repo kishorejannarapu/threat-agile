@@ -1,5 +1,5 @@
 //@ts-ignore
-import Recat from 'react';
+import Recat,{ useEffect }  from 'react';
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -7,25 +7,24 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useEffect } from "react";
-import AbuseCase from "../../types/AbuseCase";
+import Tag from "../../types/Tag";
 
-interface AbuseCaseType {
+interface TagModalType{
   open: boolean;
-  onClose: () => void;
-  onSave: (data: AbuseCase) => void;
-  rowData: AbuseCase;
+  onClose: ()=> void;
+  onSave:(data:Tag)=>void;
+  rowData:Tag;
 }
 
-const AbuseCasesModal: React.FC<AbuseCaseType> = ({
+const TagsModal: React.FC<TagModalType> = ({
   open,
   onClose,
   onSave,
   rowData,
 }) => {
-  const { register, handleSubmit, reset, setValue } = useForm<AbuseCase>({});
+  const { register, handleSubmit, reset, setValue } = useForm<Tag>({});
 
-  const handleSave: SubmitHandler<AbuseCase> = (data) => {
+  const handleSave: SubmitHandler<Tag> = (data) => {
     onSave(data);
     onClose();
   };
@@ -38,8 +37,7 @@ const AbuseCasesModal: React.FC<AbuseCaseType> = ({
       });
     } else {
       reset({
-        abuseCase: "",
-        description: "",
+        tag: "",
       });
     }
   }, [open]);
@@ -50,16 +48,9 @@ const AbuseCasesModal: React.FC<AbuseCaseType> = ({
         <DialogTitle>{rowData ? "Edit Row" : "Add Row"}</DialogTitle>
         <DialogContent>
           <TextField
-            label="AbuseCase"
+            label="Tag"
             type="text"
-            {...register("abuseCase")}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Description"
-            type="text"
-            {...register("description")}
+            {...register("tag")}
             fullWidth
             margin="normal"
           />
@@ -77,4 +68,4 @@ const AbuseCasesModal: React.FC<AbuseCaseType> = ({
   );
 };
 
-export default AbuseCasesModal;
+export default TagsModal;

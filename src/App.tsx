@@ -16,13 +16,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ThreatAgile from './pages/ThreatAgile';
 import { FormProvider, useForm } from 'react-hook-form';
+import './App.css';
 
 function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="https://google.com/">
+        Threat Model
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}

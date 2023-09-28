@@ -1,3 +1,5 @@
+//@ts-ignore
+import Recat from 'react';
 import { useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";

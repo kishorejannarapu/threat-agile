@@ -1,27 +1,26 @@
 //@ts-ignore
-import Recat from 'react';
-import { useState } from "react";
+import React,{ useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import Question from "../../types/Question";
-import QuestionsModal from "./QuestionsModal";
+import SecurityRequirement from "../../types/SecurityRequirement";
+import SecurityRequirementsModal from "./SecurityRequirementModal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 
-interface QuestionsTableProps {
-  questionsList: Question[];
-  setQuestionsList: (newState: Question[]) => void;
+interface SecurityRequirementTableProps {
+  securityRequirementsList: SecurityRequirement[];
+  setSecurityRequirementsList: (newState: SecurityRequirement[]) => void;
 }
 
-const QuestionsTable: React.FC<QuestionsTableProps> = ({
-  questionsList,
-  setQuestionsList,
+const SecurityRequirementTable: React.FC<SecurityRequirementTableProps> = ({
+  securityRequirementsList,
+  setSecurityRequirementsList
 }) => {
-  const [rows, setRows] = useState<Question[]>(questionsList);
+  const [rows, setRows] = useState<SecurityRequirement[]>(securityRequirementsList);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedRow, setSelectedRow] = useState<Question | null>(null);
+  const [selectedRow, setSelectedRow] = useState<SecurityRequirement | null>(null);
 
   const handleAddClick = () => {
     setSelectedRow(null);
@@ -32,7 +31,7 @@ const QuestionsTable: React.FC<QuestionsTableProps> = ({
     setIsModalOpen(false);
   };
 
-  const handleSave = (editedData: Question) => {
+  const handleSave = (editedData: SecurityRequirement) => {
     if (editedData["id"] == undefined) {
       editedData.id = Math.random();
       console.log("edited Data =" + JSON.stringify(editedData));
@@ -40,19 +39,19 @@ const QuestionsTable: React.FC<QuestionsTableProps> = ({
 
     if (selectedRow) {
       // Edit existing row
-      const updatedData = rows.map((row) =>
+      const updatedSecurityRequirements = rows.map((row) =>
         row.id === selectedRow.id ? editedData : row
       );
-      setQuestionsList(updatedData);
-      setRows(updatedData);
+      setSecurityRequirementsList(updatedSecurityRequirements);
+      setRows(updatedSecurityRequirements);
     } else {
       // Add new row
-      setQuestionsList([...rows, editedData]);
+      setSecurityRequirementsList([...rows, editedData]);
       setRows([...rows, editedData]);
     }
   };
 
-  const handleEdit = (row: Question) => {
+  const handleEdit = (row: SecurityRequirement) => {
     console.log("edit row =" + JSON.stringify(row));
     setSelectedRow(row);
     setIsModalOpen(true);
@@ -61,18 +60,18 @@ const QuestionsTable: React.FC<QuestionsTableProps> = ({
   const handleDelete = (id: number) => {
     // Implement your delete logic here, e.g., make an API call to delete the item
     // After successful deletion, update your data
-    const updatedData = rows.filter((row) => row.id !== id);
-    setQuestionsList(updatedData);
-    setRows(updatedData);
+    const updatedSecurityRequirements = rows.filter((row) => row.id !== id);
+    setSecurityRequirementsList(updatedSecurityRequirements);
+    setRows(updatedSecurityRequirements);
   };
 
   const columns: GridColDef[] = [
     //@ts-ignore
     { field: "id", headerName: "ID", visible: false },
     //@ts-ignore
-    { field: "question", headerName: "Question", minWidth: "450" },
+    { field: "requirement", headerName: "SecurityRequirement", minWidth: "450" },
     //@ts-ignore
-    { field: "answer", headerName: "Answer", minWidth: "500" },
+    { field: "description", headerName: "Description", minWidth: "500" },
     {
       field: "actions",
       headerName: "Actions",
@@ -115,7 +114,7 @@ const QuestionsTable: React.FC<QuestionsTableProps> = ({
           startIcon={<AddIcon />}
           onClick={handleAddClick}
         >
-          Add Question
+          Add SecurityRequirement
         </Button>
       </legend>
       <DataGrid
@@ -136,7 +135,7 @@ const QuestionsTable: React.FC<QuestionsTableProps> = ({
         disableDensitySelector
         disableVirtualization
       />
-      <QuestionsModal
+      <SecurityRequirementsModal
         open={isModalOpen}
         onClose={handleModalClose}
         onSave={handleSave}
@@ -147,4 +146,4 @@ const QuestionsTable: React.FC<QuestionsTableProps> = ({
   );
 };
 
-export default QuestionsTable;
+export default SecurityRequirementTable;

@@ -1,3 +1,5 @@
+//@ts-ignore
+import React from 'react';
 import { Box, Button, Grid, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import QuestionsTable from "./questions/QuestionsTable.tsx";
@@ -6,6 +8,10 @@ import Typography from "@mui/material/Typography";
 import Question from "../types/Question";
 import AbuseCasesTable from "./abuse-cases/AbuseCasesTable.tsx";
 import AbuseCase from "../types/AbuseCase.tsx";
+import Tag from "../types/Tag.tsx";
+import SecurityRequirementTable from './security-requirements/SecurityRequirementsTable.tsx';
+import SecurityRequirement from '../types/SecurityRequirement.tsx';
+import TagsTable from './tags/TagsTable.tsx';
 
 type FormValues = {
   firstName: string;
@@ -16,6 +22,8 @@ export default function ThreatAgile() {
   const { register, handleSubmit } = useForm<any>();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [abuseCases, setAbuseCases] = useState<AbuseCase[]>([]);
+  const [securityRequirementsList, setSecurityRequirementsList] = useState<SecurityRequirement[]>([]);
+  const [tagsList, setTagsList] = useState<Tag[]>([]);
 
   const onSubmit = (data: FormValues) => {
     setFormData({ ...data, questions, abuse_cases: abuseCases });
@@ -25,7 +33,7 @@ export default function ThreatAgile() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} id="threatAgileForm">
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
             <TextField
@@ -155,6 +163,19 @@ export default function ThreatAgile() {
           />
         </Grid>
         {/* Questions Table End*/}
+
+        <Grid>
+          <SecurityRequirementTable
+            securityRequirementsList={securityRequirementsList}
+            setSecurityRequirementsList={setSecurityRequirementsList}
+          />
+        </Grid>
+        <Grid>
+          <TagsTable
+            tagsList={tagsList}
+            setTagsList={setTagsList}
+          />
+        </Grid>
 
         <Box sx={{ paddingTop: "20px", marginLeft: "0px" }}>
           <Button type="submit" variant="contained">

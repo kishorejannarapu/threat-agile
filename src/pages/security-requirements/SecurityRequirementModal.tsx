@@ -1,5 +1,5 @@
 //@ts-ignore
-import Recat from 'react';
+import React from 'react';
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -8,24 +8,25 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect } from "react";
-import AbuseCase from "../../types/AbuseCase";
+import SecurityRequirement from "../../types/SecurityRequirement";
 
-interface AbuseCaseType {
+interface SecurityRequirementModalProps{
   open: boolean;
-  onClose: () => void;
-  onSave: (data: AbuseCase) => void;
-  rowData: AbuseCase;
+  onClose: ()=> void;
+  onSave:(data:SecurityRequirement)=>void;
+  rowData:SecurityRequirement;
 }
 
-const AbuseCasesModal: React.FC<AbuseCaseType> = ({
+
+const SecurityRequirementModal: React.FC<SecurityRequirementModalProps> = ({
   open,
   onClose,
   onSave,
   rowData,
 }) => {
-  const { register, handleSubmit, reset, setValue } = useForm<AbuseCase>({});
+  const { register, handleSubmit, reset, setValue } = useForm<SecurityRequirement>({});
 
-  const handleSave: SubmitHandler<AbuseCase> = (data) => {
+  const handleSave: SubmitHandler<SecurityRequirement> = (data) => {
     onSave(data);
     onClose();
   };
@@ -38,7 +39,7 @@ const AbuseCasesModal: React.FC<AbuseCaseType> = ({
       });
     } else {
       reset({
-        abuseCase: "",
+        requirement: "",
         description: "",
       });
     }
@@ -50,11 +51,12 @@ const AbuseCasesModal: React.FC<AbuseCaseType> = ({
         <DialogTitle>{rowData ? "Edit Row" : "Add Row"}</DialogTitle>
         <DialogContent>
           <TextField
-            label="AbuseCase"
+            label="Secuerity Requirement"
             type="text"
-            {...register("abuseCase")}
+            {...register("requirement")}
             fullWidth
             margin="normal"
+            placeholder='Input Validation'
           />
           <TextField
             label="Description"
@@ -62,6 +64,7 @@ const AbuseCasesModal: React.FC<AbuseCaseType> = ({
             {...register("description")}
             fullWidth
             margin="normal"
+            placeholder='Strict input validation is required to reduce the overall attack surface.'
           />
         </DialogContent>
         <DialogActions>
@@ -77,4 +80,4 @@ const AbuseCasesModal: React.FC<AbuseCaseType> = ({
   );
 };
 
-export default AbuseCasesModal;
+export default SecurityRequirementModal;
