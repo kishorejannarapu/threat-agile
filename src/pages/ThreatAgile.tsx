@@ -15,6 +15,7 @@ import TagsTable from "./tags/TagsTable.tsx";
 import DataAssetsTable from "./data-assets/DataAssetsTable.tsx";
 import RiskTrackingTable from "./risk-tracking/RiskTrackingTable.tsx";
 import RiskTracking from "../types/RiskTracking.tsx";
+import DataAssets from "../types/DataAssets.tsx";
 
 type FormValues = {
   firstName: string;
@@ -29,7 +30,7 @@ export default function ThreatAgile() {
     SecurityRequirement[]
   >([]);
   const [tagsList, setTagsList] = useState<Tag[]>([]);
-  const [dataAssetsList, setDataAssetsList] = useState<Tag[]>([]);
+  const [dataAssetsList, setDataAssetsList] = useState<DataAssets[]>([]);
   const [riskTrackingList, setRiskTrackingList] = useState<RiskTracking[]>([]);
 
   const onSubmit = (data: FormValues) => {

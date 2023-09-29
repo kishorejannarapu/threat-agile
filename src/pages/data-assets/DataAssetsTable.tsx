@@ -33,7 +33,7 @@ const DataAssetsTable: React.FC<DataAssetsTableProps> = ({
 
   const handleSave = (editedData: DataAssets) => {
     if (editedData["id"] == undefined) {
-      editedData.id = Math.random();
+      editedData.id = editedData.description.split(" ").join("-");
       console.log("edited Data =" + JSON.stringify(editedData));
     }
 
@@ -57,7 +57,7 @@ const DataAssetsTable: React.FC<DataAssetsTableProps> = ({
     setIsModalOpen(true);
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     // Implement your delete logic here, e.g., make an API call to delete the item
     // After successful deletion, update your data
     const updatedDataAssets = rows.filter((row) => row.id !== id);
