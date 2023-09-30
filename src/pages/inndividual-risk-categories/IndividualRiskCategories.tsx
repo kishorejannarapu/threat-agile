@@ -11,15 +11,15 @@ import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 
 interface IndividualRiskCategoryTableProps {
-  riskTrackingList: IndividualRiskCategory[];
-  setIndividualRiskCategoryList: (newState: IndividualRiskCategory[]) => void;
+  individualRiskCategoriesList: IndividualRiskCategory[];
+  setIndividualRiskCategoriesList: (newState: IndividualRiskCategory[]) => void;
 }
 
-const IndividualRiskCategoryTable: React.FC<IndividualRiskCategoryTableProps> = ({
-  riskTrackingList,
-  setIndividualRiskCategoryList,
+const IndividualRiskCategoriesTable: React.FC<IndividualRiskCategoryTableProps> = ({
+  individualRiskCategoriesList,
+  setIndividualRiskCategoriesList,
 }) => {
-  const [rows, setRows] = useState<IndividualRiskCategory[]>(riskTrackingList);
+  const [rows, setRows] = useState<IndividualRiskCategory[]>(individualRiskCategoriesList);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState<IndividualRiskCategory | null>(null);
 
@@ -40,14 +40,12 @@ const IndividualRiskCategoryTable: React.FC<IndividualRiskCategoryTableProps> = 
 
     if (selectedRow) {
       // Edit existing row
-      const updatedData = rows.map((row) =>
-        row.id === selectedRow.id ? editedData : row
-      );
-      setIndividualRiskCategoryList(updatedData);
+      const updatedData = rows.map((row) => (row.id === selectedRow.id ? editedData : row));
+      setIndividualRiskCategoriesList(updatedData);
       setRows(updatedData);
     } else {
       // Add new row
-      setIndividualRiskCategoryList([...rows, editedData]);
+      setIndividualRiskCategoriesList([...rows, editedData]);
       setRows([...rows, editedData]);
     }
   };
@@ -62,7 +60,7 @@ const IndividualRiskCategoryTable: React.FC<IndividualRiskCategoryTableProps> = 
     // Implement your delete logic here, e.g., make an API call to delete the item
     // After successful deletion, update your data
     const updatedData = rows.filter((row) => row.id !== id);
-    setIndividualRiskCategoryList(updatedData);
+    setIndividualRiskCategoriesList(updatedData);
     setRows(updatedData);
   };
 
@@ -114,11 +112,7 @@ const IndividualRiskCategoryTable: React.FC<IndividualRiskCategoryTableProps> = 
       key={rows.length}
     >
       <legend>
-        <Button
-          color="primary"
-          startIcon={<AddIcon />}
-          onClick={handleAddClick}
-        >
+        <Button color="primary" startIcon={<AddIcon />} onClick={handleAddClick}>
           Add IndividualRiskCategory
         </Button>
       </legend>
@@ -151,4 +145,4 @@ const IndividualRiskCategoryTable: React.FC<IndividualRiskCategoryTableProps> = 
   );
 };
 
-export default IndividualRiskCategoryTable;
+export default IndividualRiskCategoriesTable;

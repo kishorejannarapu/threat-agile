@@ -11,15 +11,15 @@ import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 
 interface TrustedBoundaryTableProps {
-  riskTrackingList: TrustedBoundary[];
-  setTrustedBoundaryList: (newState: TrustedBoundary[]) => void;
+  trustedBoundariesList: TrustedBoundary[];
+  setTrustedBoundariesList: (newState: TrustedBoundary[]) => void;
 }
 
-const TrustedBoundaryTable: React.FC<TrustedBoundaryTableProps> = ({
-  riskTrackingList,
-  setTrustedBoundaryList,
+const TrustedBoundariesTable: React.FC<TrustedBoundaryTableProps> = ({
+  trustedBoundariesList,
+  setTrustedBoundariesList,
 }) => {
-  const [rows, setRows] = useState<TrustedBoundary[]>(riskTrackingList);
+  const [rows, setRows] = useState<TrustedBoundary[]>(trustedBoundariesList);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState<TrustedBoundary | null>(null);
 
@@ -43,11 +43,11 @@ const TrustedBoundaryTable: React.FC<TrustedBoundaryTableProps> = ({
       const updatedData = rows.map((row) =>
         row.id === selectedRow.id ? editedData : row
       );
-      setTrustedBoundaryList(updatedData);
+      setTrustedBoundariesList(updatedData);
       setRows(updatedData);
     } else {
       // Add new row
-      setTrustedBoundaryList([...rows, editedData]);
+      setTrustedBoundariesList([...rows, editedData]);
       setRows([...rows, editedData]);
     }
   };
@@ -62,7 +62,7 @@ const TrustedBoundaryTable: React.FC<TrustedBoundaryTableProps> = ({
     // Implement your delete logic here, e.g., make an API call to delete the item
     // After successful deletion, update your data
     const updatedData = rows.filter((row) => row.id !== id);
-    setTrustedBoundaryList(updatedData);
+    setTrustedBoundariesList(updatedData);
     setRows(updatedData);
   };
 
@@ -151,4 +151,4 @@ const TrustedBoundaryTable: React.FC<TrustedBoundaryTableProps> = ({
   );
 };
 
-export default TrustedBoundaryTable;
+export default TrustedBoundariesTable;

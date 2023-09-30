@@ -1,3 +1,6 @@
-interface TrustedBoundary {}
+interface TrustedBoundary {
+    id:string;
+    name:string;
+}
 
 export default TrustedBoundary;

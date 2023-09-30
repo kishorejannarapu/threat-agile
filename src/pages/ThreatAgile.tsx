@@ -1,6 +1,6 @@
 //@ts-ignore
 import React from "react";
-import { Box, Button, Grid, TextField } from "@mui/material";
+import { Box, Button, Grid, Tab, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import QuestionsTable from "./questions/QuestionsTable.tsx";
 import { useState } from "react";
@@ -21,6 +21,15 @@ import CommunicationLinks from "../types/CommunicationLinks.tsx";
 import CommunicationLinksTable from "./communication-links/CommunicationLinksTable.tsx";
 import TechnicalAssetsTable from "./technical-assets/TechnicalAssetsTable.tsx";
 import SharedRuntimesTable from "./shared-runtimes/SharedRuntimesTable.tsx";
+import TrustedBoundariesTable from "./trusted-boundaries/TrustedBoundariesTable.tsx";
+import IndividualRiskCategoriesTable from "./inndividual-risk-categories/IndividualRiskCategories.tsx";
+import IndividualRiskCategory from "../types/IndividualRiskCategory.tsx";
+import SharedRuntime from "../types/SharedRuntime.tsx";
+import TrustedBoundary from "../types/TrustedBoundary.tsx";
+import Tabs from "@mui/material/Tabs";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
+import { TabContext } from "@mui/lab";
 
 type FormValues = {
   firstName: string;
@@ -37,6 +46,16 @@ export default function ThreatAgile() {
   const [riskTrackingList, setRiskTrackingList] = useState<RiskTracking[]>([]);
   const [communicationLinksList, setCommunicationLinksList] = useState<CommunicationLinks[]>([]);
   const [technicalAssetsList, setTechnicalAssetsList] = useState<TechnicalAssets[]>([]);
+  const [trustedBoundariesList, setTrustedBoundariesList] = useState<TrustedBoundary[]>([]);
+  const [sharedRuntimesList, setSharedRuntimesList] = useState<SharedRuntime[]>([]);
+  const [individualRiskCategoriesList, setIndividualRiskCategoriesList] = useState<IndividualRiskCategory[]>([]);
+
+  const [tabSelected, setTabSelected] = React.useState("1");
+
+  //@ts-ignore
+  const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
+    setTabSelected(newValue);
+  };
 
   const onSubmit = (data: FormValues) => {
     setFormData({ ...data, questions, abuse_cases: abuseCases });
@@ -112,49 +131,102 @@ export default function ThreatAgile() {
           </Grid>
         </Grid>
 
-        {/* Questions Table Start*/}
-        <Grid>
-          <QuestionsTable questionsList={questions} setQuestionsList={setQuestions} />
-        </Grid>
-        <Grid>
-          <AbuseCasesTable abuseCases={abuseCases} setAbuseCases={setAbuseCases} />
-        </Grid>
-        {/* Questions Table End*/}
+        <Box sx={{ width: "100%", typography: "body1" }}>
+          <TabContext value={tabSelected}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <TabList
+                onChange={handleTabChange}
+                aria-label="lab API tabs example"
+                variant="standard"
+                sx={{
+                  "& .MuiTabs-flexContainer": {
+                    flexWrap: "wrap",
+                  },
+                  "& .MuiTabPanel-root": {
+                    padding: 0,
+                  },
+                }}
+              >
+                <Tab label="Questions" value="1" wrapped />
+                <Tab label="Abuse Cases" value="2" wrapped />
+                <Tab label="Security Requirement" value="3" wrapped />
+                <Tab label="Tags" value="4" />
+                <Tab label="Data Assets" value="5" wrapped />
+                <Tab label="Communication Link" value="6" wrapped />
+                <Tab label="Technical Assets" value="7" wrapped />
+                <Tab label="Trust Boundaries" value="8" wrapped />
+                <Tab label="Shared Runtimes" value="9" wrapped />
+                <Tab label="Ind Risk Categories" value="10" wrapped />
+                <Tab label="Risk Tracking" value="11" wrapped />
+              </TabList>
+            </Box>
+            <TabPanel value="1">
+              {/* Questions Table Start*/}
+              <Grid>
+                <QuestionsTable questionsList={questions} setQuestionsList={setQuestions} />
+              </Grid>
 
-        <Grid>
-          <SecurityRequirementTable securityRequirementsList={securityRequirementsList} setSecurityRequirementsList={setSecurityRequirementsList} />
-        </Grid>
-        <Grid>
-          <TagsTable tagsList={tagsList} setTagsList={setTagsList} />
-        </Grid>
+              {/* Questions Table End*/}
+            </TabPanel>
+            <TabPanel value="2">
+              <Grid>
+                <AbuseCasesTable abuseCases={abuseCases} setAbuseCases={setAbuseCases} />
+              </Grid>
+            </TabPanel>
+            <TabPanel value="3">
+              <Grid>
+                <SecurityRequirementTable
+                  securityRequirementsList={securityRequirementsList}
+                  setSecurityRequirementsList={setSecurityRequirementsList}
+                />
+              </Grid>
+            </TabPanel>
+            <TabPanel value="4">
+              <Grid>
+                <TagsTable tagsList={tagsList} setTagsList={setTagsList} />
+              </Grid>
+            </TabPanel>
+            <TabPanel value="5">
+              <Grid item xs={12} md={6} maxWidth="lg">
+                <DataAssetsTable dataAssetsList={dataAssetsList} setDataAssetsList={setDataAssetsList} />
+              </Grid>
+            </TabPanel>
+            <TabPanel value="6">
+              <Grid item xs={12} md={6} maxWidth="lg">
+                <CommunicationLinksTable communicationLinksList={communicationLinksList} setCommunicationLinksList={setCommunicationLinksList} />
+              </Grid>
+            </TabPanel>
+            <TabPanel value="7">
+              <Grid item xs={12} md={6} maxWidth="lg">
+                <TechnicalAssetsTable technicalAssetsList={technicalAssetsList} setTechnicalAssetsList={setTechnicalAssetsList} />
+              </Grid>
+            </TabPanel>
+            <TabPanel value="8">
+              <Grid item xs={12} md={6} maxWidth="lg">
+                <TrustedBoundariesTable trustedBoundariesList={trustedBoundariesList} setTrustedBoundariesList={setTrustedBoundariesList} />
+              </Grid>
+            </TabPanel>
+            <TabPanel value="9">
+              <Grid item xs={12} md={6} maxWidth="lg">
+                <SharedRuntimesTable sharedRuntimesList={sharedRuntimesList} setSharedRuntimesList={setSharedRuntimesList} />
+              </Grid>
+            </TabPanel>
+            <TabPanel value="10">
+              <Grid item xs={12} md={6} maxWidth="lg">
+                <IndividualRiskCategoriesTable
+                  individualRiskCategoriesList={individualRiskCategoriesList}
+                  setIndividualRiskCategoriesList={setIndividualRiskCategoriesList}
+                />
+              </Grid>
+            </TabPanel>
 
-        <Grid item xs={12} md={6} maxWidth="lg">
-          <DataAssetsTable dataAssetsList={dataAssetsList} setDataAssetsList={setDataAssetsList} />
-        </Grid>
-
-        <Grid item xs={12} md={6} maxWidth="lg">
-          <CommunicationLinksTable communicationLinksList={communicationLinksList} setCommunicationLinksList={setCommunicationLinksList} />
-        </Grid>
-
-        <Grid item xs={12} md={6} maxWidth="lg">
-          <TechnicalAssetsTable technicalAssetsList={technicalAssetsList} setTechnicalAssetsList={setTechnicalAssetsList} />
-        </Grid>
-
-        <Grid item xs={12} md={6} maxWidth="lg">
-          <TrustedBoundariesTable technicalAssetsList={technicalAssetsList} setTechnicalAssetsList={setTechnicalAssetsList} />
-        </Grid>
-
-        <Grid item xs={12} md={6} maxWidth="lg">
-          <SharedRuntimesTable technicalAssetsList={technicalAssetsList} setTechnicalAssetsList={setTechnicalAssetsList} />
-        </Grid>
-
-        <Grid item xs={12} md={6} maxWidth="lg">
-          <IndividualRiskCategories riskTrackingList={riskTrackingList} setRiskTrackingList={setRiskTrackingList} />
-        </Grid>
-
-        <Grid item xs={12} md={6} maxWidth="lg">
-          <RiskTrackingTable riskTrackingList={riskTrackingList} setRiskTrackingList={setRiskTrackingList} />
-        </Grid>
+            <TabPanel value="11">
+              <Grid item xs={12} md={6} maxWidth="lg">
+                <RiskTrackingTable riskTrackingList={riskTrackingList} setRiskTrackingList={setRiskTrackingList} />
+              </Grid>
+            </TabPanel>
+          </TabContext>
+        </Box>
 
         <Box sx={{ paddingTop: "20px", marginLeft: "0px" }}>
           <Button type="submit" variant="contained">
