@@ -1,6 +1,6 @@
 interface SecurityRequirement {
-  id: number;
-  requirement: string;
+  id: string;
+  name: string;
   description: string;
 }
 export default SecurityRequirement;

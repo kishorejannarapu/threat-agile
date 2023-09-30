@@ -1,5 +1,5 @@
 interface AbuseCase {
-  id: number;
+  id: string;
   abuseCase: string;
   description: string;
 }

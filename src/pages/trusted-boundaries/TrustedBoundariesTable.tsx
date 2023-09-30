@@ -1,27 +1,27 @@
 //@ts-ignore
-import Recat from 'react';
+import Recat from "react";
 import { useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import Tag from "../../types/Tag";
-import QuestionsModal from "./TagsModal";
+import TrustedBoundary from "../../types/TrustedBoundary";
+import TrustedBoundaryModal from "./TrustedBoundaryModal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 
-interface TagssTableProps {
-  tagsList: Tag[];
-  setTagsList: (newState: Tag[]) => void;
+interface TrustedBoundaryTableProps {
+  riskTrackingList: TrustedBoundary[];
+  setTrustedBoundaryList: (newState: TrustedBoundary[]) => void;
 }
 
-const TagsTable: React.FC<TagssTableProps> = ({
-  tagsList,
-  setTagsList,
+const TrustedBoundaryTable: React.FC<TrustedBoundaryTableProps> = ({
+  riskTrackingList,
+  setTrustedBoundaryList,
 }) => {
-  const [rows, setRows] = useState<Tag[]>(tagsList);
+  const [rows, setRows] = useState<TrustedBoundary[]>(riskTrackingList);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedRow, setSelectedRow] = useState<Tag | null>(null);
+  const [selectedRow, setSelectedRow] = useState<TrustedBoundary | null>(null);
 
   const handleAddClick = () => {
     setSelectedRow(null);
@@ -32,9 +32,9 @@ const TagsTable: React.FC<TagssTableProps> = ({
     setIsModalOpen(false);
   };
 
-  const handleSave = (editedData: Tag) => {
+  const handleSave = (editedData: TrustedBoundary) => {
     if (editedData["id"] == undefined) {
-      editedData.id =editedData.tag;
+      editedData.id = editedData.name.split(" ").join("-");
       console.log("edited Data =" + JSON.stringify(editedData));
     }
 
@@ -43,16 +43,16 @@ const TagsTable: React.FC<TagssTableProps> = ({
       const updatedData = rows.map((row) =>
         row.id === selectedRow.id ? editedData : row
       );
-      setTagsList(updatedData);
+      setTrustedBoundaryList(updatedData);
       setRows(updatedData);
     } else {
       // Add new row
-      setTagsList([...rows, editedData]);
+      setTrustedBoundaryList([...rows, editedData]);
       setRows([...rows, editedData]);
     }
   };
 
-  const handleEdit = (row: Tag) => {
+  const handleEdit = (row: TrustedBoundary) => {
     console.log("edit row =" + JSON.stringify(row));
     setSelectedRow(row);
     setIsModalOpen(true);
@@ -62,7 +62,7 @@ const TagsTable: React.FC<TagssTableProps> = ({
     // Implement your delete logic here, e.g., make an API call to delete the item
     // After successful deletion, update your data
     const updatedData = rows.filter((row) => row.id !== id);
-    setTagsList(updatedData);
+    setTrustedBoundaryList(updatedData);
     setRows(updatedData);
   };
 
@@ -70,8 +70,13 @@ const TagsTable: React.FC<TagssTableProps> = ({
     //@ts-ignore
     { field: "id", headerName: "ID", visible: false },
     //@ts-ignore
-    { field: "tag", headerName: "Tag", minWidth: "720" },
+    { field: "name", headerName: "Name", width: 150 },
     //@ts-ignore
+    { field: "status", headerName: "Status", width: 150 },
+    { field: "justification", headerName: "Justification", width: 250 },
+    { field: "ticket", headerName: "Ticket", width: 150 },
+    { field: "date", headerName: "Date", width: 150 },
+    { field: "checked_by", headerName: "Checked By", width: 150 },
     {
       field: "actions",
       headerName: "Actions",
@@ -114,7 +119,7 @@ const TagsTable: React.FC<TagssTableProps> = ({
           startIcon={<AddIcon />}
           onClick={handleAddClick}
         >
-          Add Tag
+          Add TrustedBoundary
         </Button>
       </legend>
       <DataGrid
@@ -135,7 +140,7 @@ const TagsTable: React.FC<TagssTableProps> = ({
         disableDensitySelector
         disableVirtualization
       />
-      <QuestionsModal
+      <TrustedBoundaryModal
         open={isModalOpen}
         onClose={handleModalClose}
         onSave={handleSave}
@@ -146,4 +151,4 @@ const TagsTable: React.FC<TagssTableProps> = ({
   );
 };
 
-export default TagsTable;
+export default TrustedBoundaryTable;

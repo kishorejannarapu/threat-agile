@@ -1,5 +1,5 @@
 //@ts-ignore
-import React from 'react';
+import React from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -8,25 +8,19 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect } from "react";
-import SecurityRequirement from "../../types/SecurityRequirement";
+import CommunicationLinks from "../../types/CommunicationLinks";
 
-interface SecurityRequirementModalProps{
+interface CommunicationLinksModalProps {
   open: boolean;
-  onClose: ()=> void;
-  onSave:(data:SecurityRequirement)=>void;
-  rowData:SecurityRequirement;
+  onClose: () => void;
+  onSave: (data: CommunicationLinks) => void;
+  rowData: CommunicationLinks;
 }
 
+const CommunicationLinksModal: React.FC<CommunicationLinksModalProps> = ({ open, onClose, onSave, rowData }) => {
+  const { register, handleSubmit, reset, setValue } = useForm<CommunicationLinks>({});
 
-const SecurityRequirementModal: React.FC<SecurityRequirementModalProps> = ({
-  open,
-  onClose,
-  onSave,
-  rowData,
-}) => {
-  const { register, handleSubmit, reset, setValue } = useForm<SecurityRequirement>({});
-
-  const handleSave: SubmitHandler<SecurityRequirement> = (data) => {
+  const handleSave: SubmitHandler<CommunicationLinks> = (data) => {
     onSave(data);
     onClose();
   };
@@ -38,17 +32,14 @@ const SecurityRequirementModal: React.FC<SecurityRequirementModalProps> = ({
         setValue(field, rowData[field]);
       });
     } else {
-      reset({
-        name: "",
-        description: "",
-      });
+      reset({});
     }
   }, [open]);
 
   return (
     <Dialog open={open} onClose={onClose}>
       <form onSubmit={handleSubmit(handleSave)}>
-        <DialogTitle>{rowData ? "Edit Security Requirement" : "Add Security Requirement"}</DialogTitle>
+        <DialogTitle>{rowData ? "Edit Communication Link" : "Add Communication Link"}</DialogTitle>
         <DialogContent>
           <TextField
             label="Secuerity Requirement"
@@ -56,7 +47,7 @@ const SecurityRequirementModal: React.FC<SecurityRequirementModalProps> = ({
             {...register("name")}
             fullWidth
             margin="normal"
-            placeholder='Input Validation'
+            placeholder="Input Validation"
           />
           <TextField
             label="Description"
@@ -64,7 +55,7 @@ const SecurityRequirementModal: React.FC<SecurityRequirementModalProps> = ({
             {...register("description")}
             fullWidth
             margin="normal"
-            placeholder='Strict input validation is required to reduce the overall attack surface.'
+            placeholder="Strict input validation is required to reduce the overall attack surface."
           />
         </DialogContent>
         <DialogActions>
@@ -80,4 +71,4 @@ const SecurityRequirementModal: React.FC<SecurityRequirementModalProps> = ({
   );
 };
 
-export default SecurityRequirementModal;
+export default CommunicationLinksModal;

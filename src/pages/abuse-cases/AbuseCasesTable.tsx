@@ -34,7 +34,7 @@ const AbuseCasesTable: React.FC<AbuseCasesTableProps> = ({
 
   const handleSave = (editedData: AbuseCase) => {
     if (editedData["id"] == undefined) {
-      editedData.id = Math.random();
+      editedData.id =editedData.abuseCase.split(" ").join("-");
     }
 
     if (selectedRow) {
@@ -56,7 +56,7 @@ const AbuseCasesTable: React.FC<AbuseCasesTableProps> = ({
     setIsModalOpen(true);
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     // Implement your delete logic here, e.g., make an API call to delete the item
     // After successful deletion, update your data
     const updatedAbuseCases = rows.filter((row) => row.id !== id);

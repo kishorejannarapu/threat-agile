@@ -8,25 +8,25 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect } from "react";
-import SecurityRequirement from "../../types/SecurityRequirement";
+import SharedRuntime from "../../types/SharedRuntime";
 
-interface SecurityRequirementModalProps{
+interface SharedRuntimeModalProps{
   open: boolean;
   onClose: ()=> void;
-  onSave:(data:SecurityRequirement)=>void;
-  rowData:SecurityRequirement;
+  onSave:(data:SharedRuntime)=>void;
+  rowData:SharedRuntime;
 }
 
 
-const SecurityRequirementModal: React.FC<SecurityRequirementModalProps> = ({
+const SharedRuntimeModal: React.FC<SharedRuntimeModalProps> = ({
   open,
   onClose,
   onSave,
   rowData,
 }) => {
-  const { register, handleSubmit, reset, setValue } = useForm<SecurityRequirement>({});
+  const { register, handleSubmit, reset, setValue } = useForm<SharedRuntime>({});
 
-  const handleSave: SubmitHandler<SecurityRequirement> = (data) => {
+  const handleSave: SubmitHandler<SharedRuntime> = (data) => {
     onSave(data);
     onClose();
   };
@@ -48,7 +48,7 @@ const SecurityRequirementModal: React.FC<SecurityRequirementModalProps> = ({
   return (
     <Dialog open={open} onClose={onClose}>
       <form onSubmit={handleSubmit(handleSave)}>
-        <DialogTitle>{rowData ? "Edit Security Requirement" : "Add Security Requirement"}</DialogTitle>
+        <DialogTitle>{rowData ? "Edit Row" : "Add Row"}</DialogTitle>
         <DialogContent>
           <TextField
             label="Secuerity Requirement"
@@ -80,4 +80,4 @@ const SecurityRequirementModal: React.FC<SecurityRequirementModalProps> = ({
   );
 };
 
-export default SecurityRequirementModal;
+export default SharedRuntimeModal;

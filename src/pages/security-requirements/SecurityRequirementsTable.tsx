@@ -33,7 +33,7 @@ const SecurityRequirementTable: React.FC<SecurityRequirementTableProps> = ({
 
   const handleSave = (editedData: SecurityRequirement) => {
     if (editedData["id"] == undefined) {
-      editedData.id = Math.random();
+      editedData.id =editedData.name.split(" ").join("-");
       console.log("edited Data =" + JSON.stringify(editedData));
     }
 
@@ -57,7 +57,7 @@ const SecurityRequirementTable: React.FC<SecurityRequirementTableProps> = ({
     setIsModalOpen(true);
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     // Implement your delete logic here, e.g., make an API call to delete the item
     // After successful deletion, update your data
     const updatedSecurityRequirements = rows.filter((row) => row.id !== id);

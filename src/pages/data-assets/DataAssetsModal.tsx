@@ -48,6 +48,15 @@ const SecurityRequirementModal: React.FC<DataAssetsModalProps> = ({
       <form onSubmit={handleSubmit(handleSave)}>
         <DialogTitle>{rowData ? "Edit Row" : "Add Row"}</DialogTitle>
         <DialogContent>
+        <TextField
+            label="Name"
+            type="text"
+            {...register("name")}
+            fullWidth
+            size="medium"
+            focused
+            margin="normal"
+          />
           <TextField
             label="Secuerity Requirement"
             type="text"

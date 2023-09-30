@@ -1,5 +1,5 @@
 interface Tag {
-  id: number;
+  id: string;
   tag: string;
 }
 export default Tag;

@@ -34,7 +34,7 @@ const QuestionsTable: React.FC<QuestionsTableProps> = ({
 
   const handleSave = (editedData: Question) => {
     if (editedData["id"] == undefined) {
-      editedData.id = Math.random();
+      editedData.id = editedData.question.split(" ").join("-");
       console.log("edited Data =" + JSON.stringify(editedData));
     }
 
@@ -58,7 +58,7 @@ const QuestionsTable: React.FC<QuestionsTableProps> = ({
     setIsModalOpen(true);
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     // Implement your delete logic here, e.g., make an API call to delete the item
     // After successful deletion, update your data
     const updatedData = rows.filter((row) => row.id !== id);

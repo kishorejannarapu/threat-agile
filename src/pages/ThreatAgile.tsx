@@ -16,6 +16,11 @@ import DataAssetsTable from "./data-assets/DataAssetsTable.tsx";
 import RiskTrackingTable from "./risk-tracking/RiskTrackingTable.tsx";
 import RiskTracking from "../types/RiskTracking.tsx";
 import DataAssets from "../types/DataAssets.tsx";
+import TechnicalAssets from "../types/TechnicalAssets.tsx";
+import CommunicationLinks from "../types/CommunicationLinks.tsx";
+import CommunicationLinksTable from "./communication-links/CommunicationLinksTable.tsx";
+import TechnicalAssetsTable from "./technical-assets/TechnicalAssetsTable.tsx";
+import SharedRuntimesTable from "./shared-runtimes/SharedRuntimesTable.tsx";
 
 type FormValues = {
   firstName: string;
@@ -26,12 +31,12 @@ export default function ThreatAgile() {
   const { register, handleSubmit } = useForm<any>();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [abuseCases, setAbuseCases] = useState<AbuseCase[]>([]);
-  const [securityRequirementsList, setSecurityRequirementsList] = useState<
-    SecurityRequirement[]
-  >([]);
+  const [securityRequirementsList, setSecurityRequirementsList] = useState<SecurityRequirement[]>([]);
   const [tagsList, setTagsList] = useState<Tag[]>([]);
   const [dataAssetsList, setDataAssetsList] = useState<DataAssets[]>([]);
   const [riskTrackingList, setRiskTrackingList] = useState<RiskTracking[]>([]);
+  const [communicationLinksList, setCommunicationLinksList] = useState<CommunicationLinks[]>([]);
+  const [technicalAssetsList, setTechnicalAssetsList] = useState<TechnicalAssets[]>([]);
 
   const onSubmit = (data: FormValues) => {
     setFormData({ ...data, questions, abuse_cases: abuseCases });
@@ -54,44 +59,16 @@ export default function ThreatAgile() {
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <TextField
-              size="small"
-              fullWidth
-              focused
-              label="Title of the model"
-              {...register("title")}
-              type="input"
-            />
+            <TextField size="small" fullWidth focused label="Title of the model" {...register("title")} type="input" />
           </Grid>
           <Grid item xs={12} md={6}>
-            <TextField
-              size="small"
-              fullWidth
-              focused
-              label="Date of the model"
-              {...register("date")}
-              type="input"
-            />
+            <TextField size="small" fullWidth focused label="Date of the model" {...register("date")} type="input" />
           </Grid>
           <Grid item xs={12} md={6}>
-            <TextField
-              size="small"
-              fullWidth
-              focused
-              label="Author Name"
-              {...register("authorName")}
-              type="input"
-            />
+            <TextField size="small" fullWidth focused label="Author Name" {...register("authorName")} type="input" />
           </Grid>
           <Grid item xs={12} md={6}>
-            <TextField
-              size="small"
-              fullWidth
-              focused
-              label="Author Homepage"
-              {...register("authorHomePage")}
-              type="input"
-            />
+            <TextField size="small" fullWidth focused label="Author Homepage" {...register("authorHomePage")} type="input" />
           </Grid>
           <Grid item xs={12} md={6}>
             <TextField
@@ -104,14 +81,7 @@ export default function ThreatAgile() {
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <TextField
-              size="small"
-              fullWidth
-              focused
-              label="Business criticality of the target"
-              {...register("business_criticality")}
-              type="input"
-            />
+            <TextField size="small" fullWidth focused label="Business criticality of the target" {...register("business_criticality")} type="input" />
           </Grid>
           <Grid item xs={12} md={6}>
             <TextField
@@ -124,14 +94,7 @@ export default function ThreatAgile() {
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <TextField
-              size="small"
-              fullWidth
-              focused
-              label="Custom images for the report"
-              {...register("business_overview_images")}
-              type="input"
-            />
+            <TextField size="small" fullWidth focused label="Custom images for the report" {...register("business_overview_images")} type="input" />
           </Grid>
 
           <Grid item xs={12} md={6}>
@@ -145,54 +108,52 @@ export default function ThreatAgile() {
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <TextField
-              size="small"
-              fullWidth
-              focused
-              label="Custom images for the report"
-              {...register("technical_overview_images")}
-              type="input"
-            />
+            <TextField size="small" fullWidth focused label="Custom images for the report" {...register("technical_overview_images")} type="input" />
           </Grid>
         </Grid>
 
         {/* Questions Table Start*/}
         <Grid>
-          <QuestionsTable
-            questionsList={questions}
-            setQuestionsList={setQuestions}
-          />
+          <QuestionsTable questionsList={questions} setQuestionsList={setQuestions} />
         </Grid>
         <Grid>
-          <AbuseCasesTable
-            abuseCases={abuseCases}
-            setAbuseCases={setAbuseCases}
-          />
+          <AbuseCasesTable abuseCases={abuseCases} setAbuseCases={setAbuseCases} />
         </Grid>
         {/* Questions Table End*/}
 
         <Grid>
-          <SecurityRequirementTable
-            securityRequirementsList={securityRequirementsList}
-            setSecurityRequirementsList={setSecurityRequirementsList}
-          />
+          <SecurityRequirementTable securityRequirementsList={securityRequirementsList} setSecurityRequirementsList={setSecurityRequirementsList} />
         </Grid>
         <Grid>
           <TagsTable tagsList={tagsList} setTagsList={setTagsList} />
         </Grid>
 
         <Grid item xs={12} md={6} maxWidth="lg">
-          <DataAssetsTable
-            dataAssetsList={dataAssetsList}
-            setDataAssetsList={setDataAssetsList}
-          />
+          <DataAssetsTable dataAssetsList={dataAssetsList} setDataAssetsList={setDataAssetsList} />
         </Grid>
 
         <Grid item xs={12} md={6} maxWidth="lg">
-          <RiskTrackingTable
-            riskTrackingList={riskTrackingList}
-            setRiskTrackingList={setRiskTrackingList}
-          />
+          <CommunicationLinksTable communicationLinksList={communicationLinksList} setCommunicationLinksList={setCommunicationLinksList} />
+        </Grid>
+
+        <Grid item xs={12} md={6} maxWidth="lg">
+          <TechnicalAssetsTable technicalAssetsList={technicalAssetsList} setTechnicalAssetsList={setTechnicalAssetsList} />
+        </Grid>
+
+        <Grid item xs={12} md={6} maxWidth="lg">
+          <TrustedBoundariesTable technicalAssetsList={technicalAssetsList} setTechnicalAssetsList={setTechnicalAssetsList} />
+        </Grid>
+
+        <Grid item xs={12} md={6} maxWidth="lg">
+          <SharedRuntimesTable technicalAssetsList={technicalAssetsList} setTechnicalAssetsList={setTechnicalAssetsList} />
+        </Grid>
+
+        <Grid item xs={12} md={6} maxWidth="lg">
+          <IndividualRiskCategories riskTrackingList={riskTrackingList} setRiskTrackingList={setRiskTrackingList} />
+        </Grid>
+
+        <Grid item xs={12} md={6} maxWidth="lg">
+          <RiskTrackingTable riskTrackingList={riskTrackingList} setRiskTrackingList={setRiskTrackingList} />
         </Grid>
 
         <Box sx={{ paddingTop: "20px", marginLeft: "0px" }}>
@@ -203,9 +164,7 @@ export default function ThreatAgile() {
 
         <br />
         <b>Submitted form Data:</b>
-        <Typography sx={{ wordBreak: "break-word" }}>
-          {JSON.stringify(formData)}
-        </Typography>
+        <Typography sx={{ wordBreak: "break-word" }}>{JSON.stringify(formData)}</Typography>
       </form>
     </div>
   );

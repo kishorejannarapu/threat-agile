@@ -1,27 +1,26 @@
 //@ts-ignore
-import Recat from 'react';
-import { useState } from "react";
+import React,{ useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import Tag from "../../types/Tag";
-import QuestionsModal from "./TagsModal";
+import TechnicalAssets from "../../types/TechnicalAssets";
+import TechnicalAssetssModal from "./TechnicalAssetModal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 
-interface TagssTableProps {
-  tagsList: Tag[];
-  setTagsList: (newState: Tag[]) => void;
+interface TechnicalAssetsTableProps {
+  technicalAssetsList: TechnicalAssets[];
+  setTechnicalAssetsList: (newState: TechnicalAssets[]) => void;
 }
 
-const TagsTable: React.FC<TagssTableProps> = ({
-  tagsList,
-  setTagsList,
+const TechnicalAssetsTable: React.FC<TechnicalAssetsTableProps> = ({
+  technicalAssetsList,
+  setTechnicalAssetsList
 }) => {
-  const [rows, setRows] = useState<Tag[]>(tagsList);
+  const [rows, setRows] = useState<TechnicalAssets[]>(technicalAssetsList);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedRow, setSelectedRow] = useState<Tag | null>(null);
+  const [selectedRow, setSelectedRow] = useState<TechnicalAssets | null>(null);
 
   const handleAddClick = () => {
     setSelectedRow(null);
@@ -32,28 +31,27 @@ const TagsTable: React.FC<TagssTableProps> = ({
     setIsModalOpen(false);
   };
 
-  const handleSave = (editedData: Tag) => {
+  const handleSave = (editedData: TechnicalAssets) => {
     if (editedData["id"] == undefined) {
-      editedData.id =editedData.tag;
+      editedData.id = editedData.name.split(" ").join("-");
       console.log("edited Data =" + JSON.stringify(editedData));
     }
 
     if (selectedRow) {
       // Edit existing row
-      const updatedData = rows.map((row) =>
+      const updatedTechnicalAssetss = rows.map((row) =>
         row.id === selectedRow.id ? editedData : row
       );
-      setTagsList(updatedData);
-      setRows(updatedData);
+      setTechnicalAssetsList(updatedTechnicalAssetss);
+      setRows(updatedTechnicalAssetss);
     } else {
       // Add new row
-      setTagsList([...rows, editedData]);
+      setTechnicalAssetsList([...rows, editedData]);
       setRows([...rows, editedData]);
     }
   };
 
-  const handleEdit = (row: Tag) => {
-    console.log("edit row =" + JSON.stringify(row));
+  const handleEdit = (row: TechnicalAssets) => {
     setSelectedRow(row);
     setIsModalOpen(true);
   };
@@ -61,17 +59,18 @@ const TagsTable: React.FC<TagssTableProps> = ({
   const handleDelete = (id: string) => {
     // Implement your delete logic here, e.g., make an API call to delete the item
     // After successful deletion, update your data
-    const updatedData = rows.filter((row) => row.id !== id);
-    setTagsList(updatedData);
-    setRows(updatedData);
+    const updatedTechnicalAssetss = rows.filter((row) => row.id !== id);
+    setTechnicalAssetsList(updatedTechnicalAssetss);
+    setRows(updatedTechnicalAssetss);
   };
 
   const columns: GridColDef[] = [
     //@ts-ignore
     { field: "id", headerName: "ID", visible: false },
     //@ts-ignore
-    { field: "tag", headerName: "Tag", minWidth: "720" },
+    { field: "requirement", headerName: "TechnicalAssets", minWidth: "450" },
     //@ts-ignore
+    { field: "description", headerName: "Description", minWidth: "500" },
     {
       field: "actions",
       headerName: "Actions",
@@ -114,7 +113,7 @@ const TagsTable: React.FC<TagssTableProps> = ({
           startIcon={<AddIcon />}
           onClick={handleAddClick}
         >
-          Add Tag
+          Add TechnicalAssets
         </Button>
       </legend>
       <DataGrid
@@ -135,7 +134,7 @@ const TagsTable: React.FC<TagssTableProps> = ({
         disableDensitySelector
         disableVirtualization
       />
-      <QuestionsModal
+      <TechnicalAssetssModal
         open={isModalOpen}
         onClose={handleModalClose}
         onSave={handleSave}
@@ -146,4 +145,4 @@ const TagsTable: React.FC<TagssTableProps> = ({
   );
 };
 
-export default TagsTable;
+export default TechnicalAssetsTable;

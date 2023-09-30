@@ -1,27 +1,26 @@
 //@ts-ignore
-import Recat from 'react';
-import { useState } from "react";
+import React,{ useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import Tag from "../../types/Tag";
-import QuestionsModal from "./TagsModal";
+import CommunicationLinks from "../../types/CommunicationLinks";
+import CommunicationLinkssModal from "./ComunicationLinksModal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 
-interface TagssTableProps {
-  tagsList: Tag[];
-  setTagsList: (newState: Tag[]) => void;
+interface CommunicationLinksTableProps {
+  communicationLinksList: CommunicationLinks[];
+  setCommunicationLinksList: (newState: CommunicationLinks[]) => void;
 }
 
-const TagsTable: React.FC<TagssTableProps> = ({
-  tagsList,
-  setTagsList,
+const CommunicationLinksTable: React.FC<CommunicationLinksTableProps> = ({
+  communicationLinksList,
+  setCommunicationLinksList
 }) => {
-  const [rows, setRows] = useState<Tag[]>(tagsList);
+  const [rows, setRows] = useState<CommunicationLinks[]>(communicationLinksList);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedRow, setSelectedRow] = useState<Tag | null>(null);
+  const [selectedRow, setSelectedRow] = useState<CommunicationLinks | null>(null);
 
   const handleAddClick = () => {
     setSelectedRow(null);
@@ -32,27 +31,27 @@ const TagsTable: React.FC<TagssTableProps> = ({
     setIsModalOpen(false);
   };
 
-  const handleSave = (editedData: Tag) => {
+  const handleSave = (editedData: CommunicationLinks) => {
     if (editedData["id"] == undefined) {
-      editedData.id =editedData.tag;
+      editedData.id =editedData.name.split(" ").join("-");
       console.log("edited Data =" + JSON.stringify(editedData));
     }
 
     if (selectedRow) {
       // Edit existing row
-      const updatedData = rows.map((row) =>
+      const updatedCommunicationLinkss = rows.map((row) =>
         row.id === selectedRow.id ? editedData : row
       );
-      setTagsList(updatedData);
-      setRows(updatedData);
+      setCommunicationLinksList(updatedCommunicationLinkss);
+      setRows(updatedCommunicationLinkss);
     } else {
       // Add new row
-      setTagsList([...rows, editedData]);
+      setCommunicationLinksList([...rows, editedData]);
       setRows([...rows, editedData]);
     }
   };
 
-  const handleEdit = (row: Tag) => {
+  const handleEdit = (row: CommunicationLinks) => {
     console.log("edit row =" + JSON.stringify(row));
     setSelectedRow(row);
     setIsModalOpen(true);
@@ -61,17 +60,18 @@ const TagsTable: React.FC<TagssTableProps> = ({
   const handleDelete = (id: string) => {
     // Implement your delete logic here, e.g., make an API call to delete the item
     // After successful deletion, update your data
-    const updatedData = rows.filter((row) => row.id !== id);
-    setTagsList(updatedData);
-    setRows(updatedData);
+    const updatedCommunicationLinkss = rows.filter((row) => row.id !== id);
+    setCommunicationLinksList(updatedCommunicationLinkss);
+    setRows(updatedCommunicationLinkss);
   };
 
   const columns: GridColDef[] = [
     //@ts-ignore
     { field: "id", headerName: "ID", visible: false },
     //@ts-ignore
-    { field: "tag", headerName: "Tag", minWidth: "720" },
+    { field: "requirement", headerName: "CommunicationLinks", minWidth: "450" },
     //@ts-ignore
+    { field: "description", headerName: "Description", minWidth: "500" },
     {
       field: "actions",
       headerName: "Actions",
@@ -114,7 +114,7 @@ const TagsTable: React.FC<TagssTableProps> = ({
           startIcon={<AddIcon />}
           onClick={handleAddClick}
         >
-          Add Tag
+          Add CommunicationLinks
         </Button>
       </legend>
       <DataGrid
@@ -135,7 +135,7 @@ const TagsTable: React.FC<TagssTableProps> = ({
         disableDensitySelector
         disableVirtualization
       />
-      <QuestionsModal
+      <CommunicationLinkssModal
         open={isModalOpen}
         onClose={handleModalClose}
         onSave={handleSave}
@@ -146,4 +146,4 @@ const TagsTable: React.FC<TagssTableProps> = ({
   );
 };
 
-export default TagsTable;
+export default CommunicationLinksTable;
