@@ -19,6 +19,7 @@ export const theme: AppTheme = {
   dark: {
     palette: {
       ...defaultDark.palette,
+      background: { default: "#121212", paper:"#121212"  },
       upvote: palette.augmentColor({
         color: {
           main: "#66bb6a",
@@ -33,13 +34,13 @@ export const theme: AppTheme = {
       }),
       containerPrimary: palette.augmentColor({
         color: {
-          main: "#121212",
+          main: "#303030",
           contrastText: "white",
         },
       }),
       containerSecondary: palette.augmentColor({
         color: {
-          main: "#121212",
+          main: "#303030",
           contrastText: "white",
         },
       }),
