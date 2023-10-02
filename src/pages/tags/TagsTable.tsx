@@ -103,7 +103,7 @@ const TagsTable: React.FC<TagssTableProps> = ({
         borderRadius: 1,
         "& .MuiDataGrid-columnHeader": {
           height: "70px",
-          backgroundColor: "primary.light",
+         
         },
       }}
       key={rows.length}

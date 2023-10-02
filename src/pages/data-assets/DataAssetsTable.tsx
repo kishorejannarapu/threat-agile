@@ -121,7 +121,7 @@ const DataAssetsTable: React.FC<DataAssetsTableProps> = ({
         borderRadius: 1,
         "& .MuiDataGrid-columnHeader": {
           height: "70px",
-          backgroundColor: "primary.light",
+         
         },
         width: '100%'
       }}

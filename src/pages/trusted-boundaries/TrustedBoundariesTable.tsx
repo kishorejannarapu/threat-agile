@@ -108,7 +108,7 @@ const TrustedBoundariesTable: React.FC<TrustedBoundaryTableProps> = ({
         borderRadius: 1,
         "& .MuiDataGrid-columnHeader": {
           height: "70px",
-          backgroundColor: "primary.light",
+         
         },
       }}
       key={rows.length}

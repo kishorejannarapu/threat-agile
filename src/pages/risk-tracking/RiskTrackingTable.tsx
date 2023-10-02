@@ -108,7 +108,7 @@ const RiskTrackingTable: React.FC<RiskTrackingTableProps> = ({
         borderRadius: 1,
         "& .MuiDataGrid-columnHeader": {
           height: "70px",
-          backgroundColor: "primary.light",
+         
         },
       }}
       key={rows.length}
