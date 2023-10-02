@@ -26,7 +26,6 @@ import IndividualRiskCategoriesTable from "./inndividual-risk-categories/Individ
 import IndividualRiskCategory from "../types/IndividualRiskCategory.tsx";
 import SharedRuntime from "../types/SharedRuntime.tsx";
 import TrustedBoundary from "../types/TrustedBoundary.tsx";
-import Tabs from "@mui/material/Tabs";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { TabContext } from "@mui/lab";

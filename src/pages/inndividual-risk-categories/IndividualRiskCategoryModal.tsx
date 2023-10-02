@@ -56,36 +56,9 @@ const IndividualRiskCategorysModal: React.FC<IndividualRiskCategoryModalType> = 
             margin="normal"
           />
           <TextField
-            label="Status"
+            label="Impact"
             type="text"
-            {...register("status")}
-            fullWidth
-            size="medium"
-            focused
-            margin="normal"
-          />
-           <TextField
-            label="Justification"
-            type="text"
-            {...register("justification")}
-            fullWidth
-            size="medium"
-            focused
-            margin="normal"
-          />
-           <TextField
-            label="Ticket"
-            type="text"
-            {...register("ticket")}
-            fullWidth
-            size="medium"
-            focused
-            margin="normal"
-          />
-           <TextField
-            label="Checked By"
-            type="text"
-            {...register("checked_by")}
+            {...register("impact")}
             fullWidth
             size="medium"
             focused

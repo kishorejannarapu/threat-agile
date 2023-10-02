@@ -104,7 +104,6 @@ const QuestionsTable: React.FC<QuestionsTableProps> = ({
         borderRadius: 1,
         "& .MuiDataGrid-columnHeader": {
           height: "70px",
-          backgroundColor: "primary.light",
         },
       }}
       key={rows.length}

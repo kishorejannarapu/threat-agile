@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
@@ -8,7 +8,6 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Badge from "@mui/material/Badge";
 import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 //@ts-ignore
@@ -17,9 +16,8 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ThreatAgile from "./pages/ThreatAgile";
 import { FormProvider, useForm } from "react-hook-form";
 import "./App.css";
-import { PaletteMode } from "@mui/material";
 import DarkModeSwitch from "./components/DarkModeSwitch";
-import ThemeColorShuffle from "./components/ThemeColorShuffle";
+//import ThemeColorShuffle from "./components/ThemeColorShuffle";
 
 function Copyright(props: any) {
   return (
@@ -89,7 +87,7 @@ export default function App() {
   const toggleDrawer = () => {
     setOpen(!open);
   };
-  
+
   //@ts-ignore
   const methods = useForm(); // Create a form instance
 
@@ -118,7 +116,7 @@ export default function App() {
             Threat Agile
           </Typography>
           <DarkModeSwitch />
-          <ThemeColorShuffle />
+          {/*<ThemeColorShuffle />*/}
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
