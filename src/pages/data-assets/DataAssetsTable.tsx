@@ -33,7 +33,7 @@ const DataAssetsTable: React.FC<DataAssetsTableProps> = ({
 
   const handleSave = (editedData: DataAssets) => {
     if (editedData["id"] == undefined) {
-      editedData.id = editedData.description.split(" ").join("-");
+      editedData.id = editedData.name.split(" ").join("-");
       console.log("edited Data =" + JSON.stringify(editedData));
     }
 

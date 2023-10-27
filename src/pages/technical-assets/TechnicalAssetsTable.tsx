@@ -1,5 +1,5 @@
 //@ts-ignore
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -8,16 +8,17 @@ import TechnicalAssetssModal from "./TechnicalAssetModal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
+import DataAssets from "../../types/DataAssets";
+import { Label } from "recharts";
 
 interface TechnicalAssetsTableProps {
   technicalAssetsList: TechnicalAssets[];
   setTechnicalAssetsList: (newState: TechnicalAssets[]) => void;
+  dataAssetsList: DataAssets[];
 }
 
-const TechnicalAssetsTable: React.FC<TechnicalAssetsTableProps> = ({
-  technicalAssetsList,
-  setTechnicalAssetsList
-}) => {
+const TechnicalAssetsTable: React.FC<TechnicalAssetsTableProps> = ({ technicalAssetsList, setTechnicalAssetsList, dataAssetsList }) => {
+  console.log("Data Assets in Technical Assets able => "+JSON.stringify(dataAssetsList))
   const [rows, setRows] = useState<TechnicalAssets[]>(technicalAssetsList);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState<TechnicalAssets | null>(null);
@@ -39,9 +40,7 @@ const TechnicalAssetsTable: React.FC<TechnicalAssetsTableProps> = ({
 
     if (selectedRow) {
       // Edit existing row
-      const updatedTechnicalAssetss = rows.map((row) =>
-        row.id === selectedRow.id ? editedData : row
-      );
+      const updatedTechnicalAssetss = rows.map((row) => (row.id === selectedRow.id ? editedData : row));
       setTechnicalAssetsList(updatedTechnicalAssetss);
       setRows(updatedTechnicalAssetss);
     } else {
@@ -102,17 +101,12 @@ const TechnicalAssetsTable: React.FC<TechnicalAssetsTableProps> = ({
         borderRadius: 1,
         "& .MuiDataGrid-columnHeader": {
           height: "70px",
-         
         },
       }}
       key={rows.length}
     >
       <legend>
-        <Button
-          color="primary"
-          startIcon={<AddIcon />}
-          onClick={handleAddClick}
-        >
+        <Button color="primary" startIcon={<AddIcon />} onClick={handleAddClick}>
           Add TechnicalAssets
         </Button>
       </legend>
@@ -140,6 +134,13 @@ const TechnicalAssetsTable: React.FC<TechnicalAssetsTableProps> = ({
         onSave={handleSave}
         //@ts-ignore
         rowData={selectedRow}
+        dataAssetsDropDown={
+          dataAssetsList
+            ? dataAssetsList.map((item) => {
+                return { value: item.id, label: item.id };
+              })
+            : []
+        }
       />
     </Box>
   );

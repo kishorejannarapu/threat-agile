@@ -197,7 +197,7 @@ export default function ThreatAgile() {
             </TabPanel>
             <TabPanel value="7">
               <Grid item xs={12} md={6} maxWidth="lg">
-                <TechnicalAssetsTable technicalAssetsList={technicalAssetsList} setTechnicalAssetsList={setTechnicalAssetsList} />
+                <TechnicalAssetsTable technicalAssetsList={technicalAssetsList} setTechnicalAssetsList={setTechnicalAssetsList} dataAssetsList={dataAssetsList} />
               </Grid>
             </TabPanel>
             <TabPanel value="8">

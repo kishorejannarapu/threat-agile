@@ -58,7 +58,7 @@ const SecurityRequirementModal: React.FC<DataAssetsModalProps> = ({
             margin="normal"
           />
           <TextField
-            label="Secuerity Requirement"
+            label="Description"
             type="text"
             {...register("description")}
             fullWidth
