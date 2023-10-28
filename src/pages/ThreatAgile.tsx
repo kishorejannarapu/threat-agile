@@ -1,7 +1,7 @@
 //@ts-ignore
 import React from "react";
-import { Box, Button, Grid, Tab, TextField } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, Tab, TextField } from "@mui/material";
+import { Controller, useForm } from "react-hook-form";
 import QuestionsTable from "./questions/QuestionsTable.tsx";
 import { useState } from "react";
 import Typography from "@mui/material/Typography";
@@ -29,6 +29,7 @@ import TrustedBoundary from "../types/TrustedBoundary.tsx";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { TabContext } from "@mui/lab";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 type FormValues = {
   firstName: string;
@@ -36,7 +37,7 @@ type FormValues = {
 
 export default function ThreatAgile() {
   const [formData, setFormData] = useState({});
-  const { register, handleSubmit } = useForm<any>();
+  const { register, handleSubmit, control } = useForm<any>();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [abuseCases, setAbuseCases] = useState<AbuseCase[]>([]);
   const [securityRequirementsList, setSecurityRequirementsList] = useState<SecurityRequirement[]>([]);
@@ -80,7 +81,33 @@ export default function ThreatAgile() {
             <TextField size="small" fullWidth focused label="Title of the model" {...register("title")} type="input" />
           </Grid>
           <Grid item xs={12} md={6}>
-            <TextField size="small" fullWidth focused label="Date of the model" {...register("date")} type="input" />
+            <FormControl fullWidth focused>
+              <InputLabel>Date of the model</InputLabel>
+              <Controller
+                control={control}
+                name="date"
+                defaultValue="null"
+                render={({ field: { ref, onBlur, name, onChange, ...field }, fieldState }) => (
+                  <DatePicker
+                    {...field}
+                    inputRef={ref}
+                    label="Date of the model"
+                    onChange={onChange}
+                    format="YYYY-MM-DD"
+                    slotProps={{
+                      textField: {
+                        focused:true,
+                        size:"small",
+                        onBlur,
+                        name,
+                        error: !!fieldState?.error,
+                        helperText: fieldState?.error?.message,
+                      },
+                    }}
+                  />
+                )}
+              />
+            </FormControl>
           </Grid>
           <Grid item xs={12} md={6}>
             <TextField size="small" fullWidth focused label="Author Name" {...register("authorName")} type="input" />
@@ -93,41 +120,52 @@ export default function ThreatAgile() {
               size="small"
               fullWidth
               focused
-              label="Individual management summary for the report"
+              label="Management summary for the report"
               {...register("management_summary_comment")}
               type="input"
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <TextField size="small" fullWidth focused label="Business criticality of the target" {...register("business_criticality")} type="input" />
+            <FormControl fullWidth focused size="small">
+              <InputLabel id="business-criticality">Business Criticality</InputLabel>
+              <Select
+                labelId="Business criticality"
+                id="Business criticality"
+                {...register("business_criticality")}
+                label="Business Criticality"
+                defaultValue=""
+              >
+                <MenuItem value={"archive"}>Achive</MenuItem>
+                <MenuItem value={"operational"}>Operational</MenuItem>
+                <MenuItem value={"important"}>Important</MenuItem>
+                <MenuItem value={"critical"}>Critical</MenuItem>
+                <MenuItem value={"mission-critical"}>Mission-critical</MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12} md={6}>
-            <TextField
-              size="small"
-              fullWidth
-              focused
-              label="Business criticality of the target"
-              {...register("business_overview_description")}
-              type="input"
-            />
+            <TextField size="small" fullWidth focused label="Business Overview" {...register("business_overview_description")} type="input" />
           </Grid>
-          <Grid item xs={12} md={6}>
+          {/* <Grid item xs={12} md={6}>
             <TextField size="small" fullWidth focused label="Custom images for the report" {...register("business_overview_images")} type="input" />
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={12}>
             <TextField
               size="small"
               fullWidth
               focused
-              label="Individual technical overview for the report"
+              label="Technical overview"
               {...register("technical_overview_description")}
               type="input"
+              multiline
+              minRows={3}
+              maxRows={4}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          {/* <Grid item xs={12} md={6}>
             <TextField size="small" fullWidth focused label="Custom images for the report" {...register("technical_overview_images")} type="input" />
-          </Grid>
+          </Grid> */}
         </Grid>
 
         <Box sx={{ width: "100%", typography: "body1" }}>
@@ -197,7 +235,11 @@ export default function ThreatAgile() {
             </TabPanel>
             <TabPanel value="7">
               <Grid item xs={12} md={6} maxWidth="lg">
-                <TechnicalAssetsTable technicalAssetsList={technicalAssetsList} setTechnicalAssetsList={setTechnicalAssetsList} dataAssetsList={dataAssetsList} />
+                <TechnicalAssetsTable
+                  technicalAssetsList={technicalAssetsList}
+                  setTechnicalAssetsList={setTechnicalAssetsList}
+                  dataAssetsList={dataAssetsList}
+                />
               </Grid>
             </TabPanel>
             <TabPanel value="8">
