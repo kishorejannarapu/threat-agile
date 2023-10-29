@@ -66,40 +66,82 @@ const TechnicalAssetsModal: React.FC<TechnicalAssetsModalProps> = ({ open, onClo
           </TooltipNoWrap>
         </DialogTitle>
         <DialogContent>
-          <TextField label="Name" type="text" {...register("name")} fullWidth margin="normal" focused />
-          <TextField label="Description" type="text" {...register("description")} fullWidth margin="normal" focused />
+          <TextField
+            label="Name"
+            type="text"
+            size="small"
+            {...register("name")}
+            fullWidth
+            margin="normal"
+            focused
+            disabled={rowData?.name ? true : false}
+          />
+          <TextField label="Description" type="text" size="small" {...register("description")} fullWidth margin="normal" focused />
 
-          <TextField label="Type" type="text" {...register("type")} fullWidth margin="normal" focused />
-          <TextField label="Usage" type="text" {...register("usage")} fullWidth margin="normal" focused />
-          <TextField label="Used as client by human" type="text" {...register("used_as_client_by_human")} fullWidth margin="normal" focused />
+          <TextField label="Type" type="text" size="small" {...register("type")} fullWidth margin="normal" focused />
+          <TextField label="Usage" type="text" size="small" {...register("usage")} fullWidth margin="normal" focused />
+          <TextField
+            label="Used as client by human"
+            size="small"
+            type="text"
+            {...register("used_as_client_by_human")}
+            fullWidth
+            margin="normal"
+            focused
+          />
 
-          <TextField label="Out of scope" type="text" {...register("out_of_scope")} fullWidth margin="normal" focused />
-          <TextField label="Justification out of scope" type="text" {...register("justification_out_of_scope")} fullWidth margin="normal" focused />
+          <TextField label="Out of scope" type="text" size="small" {...register("out_of_scope")} fullWidth margin="normal" focused />
+          <TextField
+            label="Justification out of scope"
+            size="small"
+            type="text"
+            {...register("justification_out_of_scope")}
+            fullWidth
+            margin="normal"
+            focused
+          />
 
-          <TextField label="Size" type="text" {...register("size")} fullWidth margin="normal" focused />
-          <TextField label="Technology" type="text" {...register("technology")} fullWidth margin="normal" focused />
+          <TextField label="Size" type="text" size="small" {...register("size")} fullWidth margin="normal" focused />
+          <TextField label="Technology" type="text" size="small" {...register("technology")} fullWidth margin="normal" focused />
 
-          <TextField label="Internet" type="text" {...register("internet")} fullWidth margin="normal" focused />
-          <TextField label="Machine" type="text" {...register("machine")} fullWidth margin="normal" focused />
+          <TextField label="Internet" type="text" size="small" {...register("internet")} fullWidth margin="normal" focused />
+          <TextField label="Machine" type="text" size="small" {...register("machine")} fullWidth margin="normal" focused />
 
-          <TextField label="Encryption" type="text" {...register("encryption")} fullWidth margin="normal" focused />
-          <TextField label="Owner" type="text" {...register("owner")} fullWidth margin="normal" focused />
-          <TextField label="Confidentiality" type="text" {...register("confidentiality")} fullWidth margin="normal" focused />
+          <TextField label="Encryption" type="text" size="small" {...register("encryption")} fullWidth margin="normal" focused />
+          <TextField label="Owner" type="text" size="small" {...register("owner")} fullWidth margin="normal" focused />
+          <TextField label="Confidentiality" type="text" size="small" {...register("confidentiality")} fullWidth margin="normal" focused />
 
-          <TextField label="Integrity" type="text" {...register("integrity")} fullWidth margin="normal" focused />
-          <TextField label="Integrity" type="text" {...register("integrity")} fullWidth margin="normal" focused />
+          <TextField label="Integrity" type="text" size="small" {...register("integrity")} fullWidth margin="normal" focused />
+          <TextField label="Integrity" type="text" size="small" {...register("integrity")} fullWidth margin="normal" focused />
 
-          <TextField label="Availability" type="text" {...register("availability")} fullWidth margin="normal" focused />
-          <TextField label="Justification cia rating" type="text" {...register("justification_cia_rating")} fullWidth margin="normal" focused />
-          <TextField label="Multi tenant" type="text" {...register("multi_tenant")} fullWidth margin="normal" focused />
+          <TextField label="Availability" type="text" size="small" {...register("availability")} fullWidth margin="normal" focused />
+          <TextField
+            label="Justification cia rating"
+            size="small"
+            type="text"
+            {...register("justification_cia_rating")}
+            fullWidth
+            margin="normal"
+            focused
+          />
+          <TextField label="Multi tenant" type="text" size="small" {...register("multi_tenant")} fullWidth margin="normal" focused />
 
-          <TextField label="Redundant" type="text" {...register("redundant")} fullWidth margin="normal" focused />
-          <TextField label="Custom Developed Parts" type="text" {...register("custom_developed_parts")} fullWidth margin="normal" focused />
+          <TextField label="Redundant" type="text" size="small" {...register("redundant")} fullWidth margin="normal" focused />
+          <TextField
+            label="Custom Developed Parts"
+            size="small"
+            type="text"
+            {...register("custom_developed_parts")}
+            fullWidth
+            margin="normal"
+            focused
+          />
 
           <FormControl fullWidth focused margin="normal">
             <InputLabel>Data Assets Processed</InputLabel>
             <Controller
               name="data_assets_processed"
+              size="small"
               control={control}
               defaultValue={[]}
               render={({ field }) => (
@@ -114,10 +156,11 @@ const TechnicalAssetsModal: React.FC<TechnicalAssetsModalProps> = ({ open, onClo
               )}
             />
           </FormControl>
-          <TextField label="Data Assets Stored" type="text" {...register("data_assets_stored")} fullWidth margin="normal" focused />
+          <TextField label="Data Assets Stored" size="small" type="text" {...register("data_assets_stored")} fullWidth margin="normal" focused />
 
           <TextField
             label="Data formats accepted"
+            size="small"
             type="text"
             {...register("data_formats_accepted")}
             fullWidth

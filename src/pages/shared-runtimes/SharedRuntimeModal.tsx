@@ -65,9 +65,19 @@ const SharedRuntimeModal: React.FC<SharedRuntimeModalProps> = ({ open, onClose, 
           </TooltipNoWrap>
         </DialogTitle>
         <DialogContent>
-          <TextField label="Secuerity Requirement" type="text" {...register("name")} fullWidth margin="normal" placeholder="Input Validation" />
+          <TextField
+            label="Secuerity Requirement"
+            type="text"
+            size="small"
+            {...register("name")}
+            fullWidth
+            margin="normal"
+            placeholder="Input Validation"
+            disabled={rowData?.name ? true : false}
+          />
           <TextField
             label="Description"
+            size="small"
             type="text"
             {...register("description")}
             fullWidth

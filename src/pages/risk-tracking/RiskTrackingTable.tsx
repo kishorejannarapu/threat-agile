@@ -35,7 +35,12 @@ const RiskTrackingTable: React.FC<RiskTrackingTableProps> = ({ riskTrackingList,
   const handleSave = (editedData: RiskTracking) => {
     if (editedData["id"] == undefined) {
       editedData.id = editedData.name.split(" ").join("-");
-      console.log("edited Data =" + JSON.stringify(editedData));
+
+      for (let i = 0; i < rows.length; i++) {
+        if (editedData.id === rows[i].id) {
+          return false;
+        }
+      }
     }
 
     if (selectedRow) {
@@ -51,7 +56,6 @@ const RiskTrackingTable: React.FC<RiskTrackingTableProps> = ({ riskTrackingList,
   };
 
   const handleEdit = (row: RiskTracking) => {
-    console.log("edit row =" + JSON.stringify(row));
     setSelectedRow(row);
     setIsModalOpen(true);
   };

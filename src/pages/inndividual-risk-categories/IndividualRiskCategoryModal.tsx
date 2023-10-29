@@ -62,8 +62,8 @@ const IndividualRiskCategorysModal: React.FC<IndividualRiskCategoryModalType> = 
           </TooltipNoWrap>
         </DialogTitle>
         <DialogContent>
-          <TextField label="Name" type="text" {...register("name")} fullWidth size="medium" focused margin="normal" />
-          <TextField label="Impact" type="text" {...register("impact")} fullWidth size="medium" focused margin="normal" />
+          <TextField label="Name" type="text" {...register("name")} fullWidth size="small" focused margin="normal" />
+          <TextField label="Impact" type="text" {...register("impact")} fullWidth size="small" focused margin="normal" />
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary">

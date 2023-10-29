@@ -62,11 +62,11 @@ const RiskTrackingsModal: React.FC<RiskTrackingModalType> = ({ open, onClose, on
           </TooltipNoWrap>
         </DialogTitle>
         <DialogContent>
-          <TextField label="Name" type="text" {...register("name")} fullWidth size="medium" focused margin="normal" />
-          <TextField label="Status" type="text" {...register("status")} fullWidth size="medium" focused margin="normal" />
-          <TextField label="Justification" type="text" {...register("justification")} fullWidth size="medium" focused margin="normal" />
-          <TextField label="Ticket" type="text" {...register("ticket")} fullWidth size="medium" focused margin="normal" />
-          <TextField label="Checked By" type="text" {...register("checked_by")} fullWidth size="medium" focused margin="normal" />
+          <TextField label="Name" type="text" {...register("name")} fullWidth size="small" focused margin="normal"  disabled={rowData?.name ? true : false}/>
+          <TextField label="Status" type="text" {...register("status")} fullWidth size="small" focused margin="normal" />
+          <TextField label="Justification" type="text" {...register("justification")} fullWidth size="small" focused margin="normal" />
+          <TextField label="Ticket" type="text" {...register("ticket")} fullWidth size="small" focused margin="normal" />
+          <TextField label="Checked By" type="text" {...register("checked_by")} fullWidth size="small" focused margin="normal" />
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary">

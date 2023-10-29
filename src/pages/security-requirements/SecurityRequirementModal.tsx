@@ -67,7 +67,7 @@ const SecurityRequirementModal: React.FC<SecurityRequirementModalProps> = ({ ope
           </TooltipNoWrap>
         </DialogTitle>
         <DialogContent>
-          <TextField label="Secuerity Requirement" type="text" {...register("name")} fullWidth margin="normal" focused required />
+          <TextField label="Secuerity Requirement" type="text" {...register("name")} fullWidth margin="normal" focused required  disabled={rowData?.name ? true : false}/>
           <TextField label="Description" type="text" {...register("description")} fullWidth margin="normal" focused required />
         </DialogContent>
         <DialogActions>

@@ -75,7 +75,17 @@ const TagsModal: React.FC<TagModalType> = ({ open, onClose, onSave, rowData }) =
           </TooltipNoWrap>
         </DialogTitle>
         <DialogContent>
-          <TextField label="Tag" type="text" {...register("tag")} fullWidth margin="normal" focused required />
+          <TextField
+            label="Tag"
+            type="text"
+            {...register("tag")}
+            size="small"
+            fullWidth
+            margin="normal"
+            focused
+            required
+            disabled={rowData?.tag ? true : false}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary">

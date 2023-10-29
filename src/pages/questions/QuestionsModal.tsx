@@ -11,7 +11,6 @@ import { useEffect } from "react";
 import Question from "../../types/Question";
 import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
-import Tooltip from "@mui/material/Tooltip";
 import TooltipNoWrap from "../../components/TooltipNoWrap";
 
 interface QuestionModalType {
@@ -65,8 +64,18 @@ const QuestionsModal: React.FC<QuestionModalType> = ({ open, onClose, onSave, ro
           </TooltipNoWrap>
         </DialogTitle>
         <DialogContent>
-          <TextField label="Question" type="text" {...register("question")} fullWidth focused margin="normal" required/>
-          <TextField label="Answer" type="text" {...register("answer")} fullWidth focused margin="normal" />
+          <TextField
+            label="Question"
+            type="text"
+            {...register("question")}
+            size="small"
+            fullWidth
+            focused
+            margin="normal"
+            required
+            disabled={rowData?.question ? true : false}
+          />
+          <TextField label="Answer" type="text" {...register("answer")} size="small" fullWidth focused margin="normal" />
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary">

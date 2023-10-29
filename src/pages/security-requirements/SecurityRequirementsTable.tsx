@@ -34,7 +34,12 @@ const SecurityRequirementTable: React.FC<SecurityRequirementTableProps> = ({ sec
   const handleSave = (editedData: SecurityRequirement) => {
     if (editedData["id"] == undefined) {
       editedData.id = editedData.name.split(" ").join("-");
-      console.log("edited Data =" + JSON.stringify(editedData));
+
+      for (let i = 0; i < rows.length; i++) {
+        if (editedData.id === rows[i].id) {
+          return false;
+        }
+      }
     }
 
     if (selectedRow) {

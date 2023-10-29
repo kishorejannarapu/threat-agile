@@ -10,7 +10,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
-import Tooltip from "@mui/material/Tooltip";
 import TooltipNoWrap from "../../components/TooltipNoWrap";
 
 interface TrustedBoundaryTableProps {
@@ -35,7 +34,12 @@ const TrustedBoundariesTable: React.FC<TrustedBoundaryTableProps> = ({ trustedBo
   const handleSave = (editedData: TrustedBoundary) => {
     if (editedData["id"] == undefined) {
       editedData.id = editedData.name.split(" ").join("-");
-      console.log("edited Data =" + JSON.stringify(editedData));
+
+      for (let i = 0; i < rows.length; i++) {
+        if (editedData.id === rows[i].id) {
+          return false;
+        }
+      }
     }
 
     if (selectedRow) {

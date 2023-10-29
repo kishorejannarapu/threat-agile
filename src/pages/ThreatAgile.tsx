@@ -1,7 +1,7 @@
 //@ts-ignore
 import React, { useRef } from "react";
 import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, Tab, TextField } from "@mui/material";
-import { Control, Controller, useForm } from "react-hook-form";
+import { Control, Controller, SubmitHandler, useForm } from "react-hook-form";
 import QuestionsTable from "./questions/QuestionsTable.tsx";
 import { useState } from "react";
 import Typography from "@mui/material/Typography";
@@ -39,7 +39,7 @@ type FormValues = {
 
 export default function ThreatAgile() {
   const [formData, setFormData] = useState({});
-  const { register, handleSubmit, control } = useForm<any>();
+  const { register, handleSubmit, control, formState } = useForm<any>();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [abuseCases, setAbuseCases] = useState<AbuseCase[]>([]);
   const [securityRequirementsList, setSecurityRequirementsList] = useState<SecurityRequirement[]>([]);
@@ -59,36 +59,42 @@ export default function ThreatAgile() {
     setTabSelected(newValue);
   };
 
-  const onSubmit = (data: FormValues) => {
-    const formData = {
-      ...data,
-      date: data.date ? data.date.toISOString().split("T")[0] : null,
-      questions,
-      abuse_cases: abuseCases,
-      security_requirements: securityRequirementsList,
-      tags_available: tagsList,
-      data_assets: dataAssetsList,
-      technical_assets: technicalAssetsList,
-      trust_boundaries: trustedBoundariesList,
-      shared_runtimes: sharedRuntimesList,
-      individual_risk_categories: individualRiskCategoriesList,
-      risk_tracking: riskTrackingList,
-    };
-    setFormData(formData);
-    console.log(formData);
-    const yamlData = jsyaml.dump(formData);
-    // Create a Blob object from the file content.
-    const element = document.createElement("a");
-    const file = new Blob([yamlData], { type: "text/plain" });
-    element.href = URL.createObjectURL(file);
-    element.download = `threat-model-${dayjs(new Date()).format('YYYYMMDD_HHmm')}.yaml`;
-    document.body.appendChild(element);
-    element.click();
+  const handleFormSubmit: SubmitHandler<FormValues> = (data, event) => {
+    if (event?.target.id === "threatAgileForm") {
+      const formId = (event?.target as HTMLButtonElement).getAttribute("name");
+      console.log("Form ID:", formId);
+      console.log("handleFormSubmit got clicked");
+      const formData = {
+        ...data,
+        date: data.date ? data.date.toISOString().split("T")[0] : null,
+        questions,
+        abuse_cases: abuseCases,
+        security_requirements: securityRequirementsList,
+        tags_available: tagsList,
+        data_assets: dataAssetsList,
+        technical_assets: technicalAssetsList,
+        trust_boundaries: trustedBoundariesList,
+        shared_runtimes: sharedRuntimesList,
+        individual_risk_categories: individualRiskCategoriesList,
+        risk_tracking: riskTrackingList,
+      };
+      setFormData(formData);
+      console.log(formData);
+      const yamlData = jsyaml.dump(formData);
+      // Create a Blob object from the file content.
+      const element = document.createElement("a");
+      const file = new Blob([yamlData], { type: "text/plain" });
+      element.href = URL.createObjectURL(file);
+      element.download = `threat-model-${dayjs(new Date()).format("YYYYMMDD_HHmm")}.yaml`;
+      document.body.appendChild(element);
+      element.click();
+      element.remove();
+    }
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)} id="threatAgileForm">
+      <form onSubmit={handleSubmit(handleFormSubmit)} id="threatAgileForm">
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
             <TextField

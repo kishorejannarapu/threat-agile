@@ -37,7 +37,12 @@ const TechnicalAssetsTable: React.FC<TechnicalAssetsTableProps> = ({ technicalAs
   const handleSave = (editedData: TechnicalAssets) => {
     if (editedData["id"] == undefined) {
       editedData.id = editedData.name.split(" ").join("-");
-      console.log("edited Data =" + JSON.stringify(editedData));
+
+      for (let i = 0; i < rows.length; i++) {
+        if (editedData.id === rows[i].id) {
+          return false;
+        }
+      }
     }
 
     if (selectedRow) {

@@ -35,7 +35,12 @@ const TagsTable: React.FC<TagssTableProps> = ({ tagsList, setTagsList }) => {
   const handleSave = (editedData: Tag) => {
     if (editedData["id"] == undefined) {
       editedData.id = editedData.tag;
-      console.log("edited Data =" + JSON.stringify(editedData));
+
+      for (let i = 0; i < rows.length; i++) {
+        if (editedData.id === rows[i].id) {
+          return false;
+        }
+      }
     }
 
     if (selectedRow) {

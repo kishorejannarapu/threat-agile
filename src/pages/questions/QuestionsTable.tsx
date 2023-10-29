@@ -10,7 +10,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
-import Tooltip from "@mui/material/Tooltip";
 import TooltipNoWrap from "../../components/TooltipNoWrap";
 
 interface QuestionsTableProps {
@@ -35,7 +34,11 @@ const QuestionsTable: React.FC<QuestionsTableProps> = ({ questionsList, setQuest
   const handleSave = (editedData: Question) => {
     if (editedData["id"] == undefined) {
       editedData.id = editedData.question.split(" ").join("-");
-      console.log("edited Data =" + JSON.stringify(editedData));
+      for (let i = 0; i < rows.length; i++) {
+        if (editedData.id === rows[i].id) {
+          return false;
+        }
+      }
     }
 
     if (selectedRow) {
@@ -51,7 +54,6 @@ const QuestionsTable: React.FC<QuestionsTableProps> = ({ questionsList, setQuest
   };
 
   const handleEdit = (row: Question) => {
-    console.log("edit row =" + JSON.stringify(row));
     setSelectedRow(row);
     setIsModalOpen(true);
   };
