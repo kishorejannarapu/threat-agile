@@ -50,7 +50,6 @@ const SecurityRequirementModal: React.FC<DataAssetsModalProps> = ({ open, onClos
             placement="bottom"
             title={
               <div>
-                size="small"
                 <p>How are the admin clients managed/protected against compromise?: "" </p>
                 <p>How are the development clients managed/protected against compromise?: Managed by XYZ </p>
                 <p>How are the build pipeline components managed/protected against compromise?: Managed by XYZ</p>
@@ -63,11 +62,11 @@ const SecurityRequirementModal: React.FC<DataAssetsModalProps> = ({ open, onClos
           </TooltipNoWrap>
         </DialogTitle>
         <DialogContent>
-          <TextField label="Name" type="text" {...register("name")} fullWidth size="small" focused margin="normal" required/>
-          <TextField label="Description" type="text" {...register("description")} fullWidth size="small" focused margin="normal" required/>
-          <FormControl fullWidth focused size="small" margin="normal" >
+          <TextField label="Name" type="text" {...register("name")} fullWidth size="small" focused margin="normal" required />
+          <TextField label="Description" type="text" {...register("description")} fullWidth size="small" focused margin="normal" required />
+          <FormControl fullWidth focused size="small" margin="normal">
             <InputLabel id="usage">Usage</InputLabel>
-            <Select labelId="Usage" id="usage" {...register("usage")} label="Usage" defaultValue="">
+            <Select labelId="Usage" id="usage" {...register("usage")} label="Usage" defaultValue="" required>
               <MenuItem value={"business"}>Business</MenuItem>
               <MenuItem value={"devops"}>DevOps</MenuItem>
             </Select>
@@ -75,18 +74,49 @@ const SecurityRequirementModal: React.FC<DataAssetsModalProps> = ({ open, onClos
           <TextField label="Tags" type="text" {...register("tags")} fullWidth size="small" focused margin="normal" />
           <TextField label="Origin" type="text" {...register("origin")} fullWidth size="small" focused margin="normal" />
           <TextField label="Owner" type="text" {...register("owner")} fullWidth size="small" focused margin="normal" />
-          <FormControl fullWidth focused size="small" margin="normal" >
+          <FormControl fullWidth focused size="small" margin="normal">
             <InputLabel id="quantity">Quantity</InputLabel>
-            <Select labelId="quantity" id="usage" {...register("quantity")} label="Quantity" defaultValue="">
+            <Select labelId="quantity" id="usage" {...register("quantity")} label="Quantity" defaultValue="" required>
               <MenuItem value={"very-few"}>Very-few</MenuItem>
               <MenuItem value={"few"}>Few</MenuItem>
               <MenuItem value={"many"}>Many</MenuItem>
               <MenuItem value={"very-many"}>Very-many</MenuItem>
             </Select>
           </FormControl>
-          <TextField label="Confidentiality" type="text" {...register("confidentiality")} fullWidth size="small" focused margin="normal" />
-          <TextField label="Integrity" type="text" {...register("integrity")} fullWidth margin="normal" size="small" focused />
-          <TextField label="Availability" type="text" {...register("availability")} fullWidth size="small" focused margin="normal" />
+
+          <FormControl fullWidth focused size="small" margin="normal">
+            <InputLabel id="confidentiality">Confidentiality</InputLabel>
+            <Select labelId="confidentiality" id="usage" {...register("confidentiality")} label="Confidentiality" defaultValue="" required>
+              <MenuItem value={"public"}>Public</MenuItem>
+              <MenuItem value={"internal"}>Internal</MenuItem>
+              <MenuItem value={"restricted"}>Restricted</MenuItem>
+              <MenuItem value={"confidential"}>Confidential</MenuItem>
+              <MenuItem value={"strictly-confidential"}>Strictly-confidential</MenuItem>
+            </Select>
+          </FormControl>
+
+          <FormControl fullWidth focused size="small" margin="normal">
+            <InputLabel id="integrity">Integrity</InputLabel>
+            <Select labelId="integrity" id="usage" {...register("integrity")} label="Integrity" defaultValue="" required>
+              <MenuItem value={"archive"}>archive</MenuItem>
+              <MenuItem value={"operational"}>operational</MenuItem>
+              <MenuItem value={"important"}>important</MenuItem>
+              <MenuItem value={"critical"}>critical</MenuItem>
+              <MenuItem value={"mission-critical"}>mission-critical</MenuItem>
+            </Select>
+          </FormControl>
+
+          <FormControl fullWidth focused size="small" margin="normal">
+            <InputLabel id="availability">Availability</InputLabel>
+            <Select labelId="availability" id="usage" {...register("availability")} label="availability" defaultValue="" required>
+              <MenuItem value={"archive"}>archive</MenuItem>
+              <MenuItem value={"operational"}>operational</MenuItem>
+              <MenuItem value={"important"}>important</MenuItem>
+              <MenuItem value={"critical"}>critical</MenuItem>
+              <MenuItem value={"mission-critical"}>mission-critical</MenuItem>
+            </Select>
+          </FormControl>
+
           <TextField label="Justification" type="text" {...register("justification_cia_rating")} fullWidth size="small" focused margin="normal" />
         </DialogContent>
         <DialogActions>

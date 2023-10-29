@@ -4,7 +4,6 @@ import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, Tab, Text
 import { SubmitHandler, useForm } from "react-hook-form";
 import QuestionsTable from "./questions/QuestionsTable.tsx";
 import { useState } from "react";
-import Typography from "@mui/material/Typography";
 import Question from "../types/Question";
 import AbuseCasesTable from "./abuse-cases/AbuseCasesTable.tsx";
 import AbuseCase from "../types/AbuseCase.tsx";
@@ -38,7 +37,7 @@ type FormValues = {
 };
 
 export default function ThreatAgile() {
-  const [formData, setFormData] = useState({});
+  // const [formData, setFormData] = useState({});
   const { register, handleSubmit, control } = useForm<any>();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [abuseCases, setAbuseCases] = useState<AbuseCase[]>([]);
@@ -64,7 +63,7 @@ export default function ThreatAgile() {
       const formId = (event?.target as HTMLButtonElement).getAttribute("name");
       console.log("Form ID:", formId);
       console.log("handleFormSubmit got clicked");
-      const formData = {
+      const submittedData = {
         ...data,
         date: data.date ? data.date.toISOString().split("T")[0] : null,
         questions,
@@ -78,9 +77,9 @@ export default function ThreatAgile() {
         individual_risk_categories: individualRiskCategoriesList,
         risk_tracking: riskTrackingList,
       };
-      setFormData(formData);
-      console.log(formData);
-      const yamlData = jsyaml.dump(formData);
+      //setFormData(submittedData);
+      
+      const yamlData = jsyaml.dump(submittedData);
       // Create a Blob object from the file content.
       const element = document.createElement("a");
       const file = new Blob([yamlData], { type: "text/plain" });
@@ -281,10 +280,6 @@ export default function ThreatAgile() {
             Submit
           </Button>
         </Box>
-
-        <br />
-        <b>Submitted form Data:</b>
-        <Typography sx={{ wordBreak: "break-word" }}>{JSON.stringify(formData)}</Typography>
       </form>
     </div>
   );
