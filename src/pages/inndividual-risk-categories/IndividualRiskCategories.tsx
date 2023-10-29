@@ -9,6 +9,9 @@ import IndividualRiskCategoryModal from "./IndividualRiskCategoryModal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
+import InfoIcon from "@mui/icons-material/Info";
+import Tooltip from "@mui/material/Tooltip";
+import TooltipNoWrap from "../../components/TooltipNoWrap";
 
 interface IndividualRiskCategoryTableProps {
   individualRiskCategoriesList: IndividualRiskCategory[];
@@ -106,7 +109,6 @@ const IndividualRiskCategoriesTable: React.FC<IndividualRiskCategoryTableProps> 
         borderRadius: 1,
         "& .MuiDataGrid-columnHeader": {
           height: "70px",
-         
         },
       }}
       key={rows.length}
@@ -115,6 +117,21 @@ const IndividualRiskCategoriesTable: React.FC<IndividualRiskCategoryTableProps> 
         <Button color="primary" startIcon={<AddIcon />} onClick={handleAddClick}>
           Add IndividualRiskCategory
         </Button>
+        <TooltipNoWrap
+          arrow
+          placement="bottom"
+          title={
+            <div>
+              <p>How are the admin clients managed/protected against compromise?: "" </p>
+              <p>How are the development clients managed/protected against compromise?: Managed by XYZ </p>
+              <p>How are the build pipeline components managed/protected against compromise?: Managed by XYZ</p>
+            </div>
+          }
+        >
+          <IconButton>
+            <InfoIcon fontSize="small" />
+          </IconButton>
+        </TooltipNoWrap>
       </legend>
       <DataGrid
         rows={rows}

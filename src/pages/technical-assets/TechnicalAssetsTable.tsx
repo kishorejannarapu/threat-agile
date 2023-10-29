@@ -7,9 +7,11 @@ import TechnicalAssets from "../../types/TechnicalAssets";
 import TechnicalAssetssModal from "./TechnicalAssetModal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import IconButton from "@mui/material/IconButton";
 import DataAssets from "../../types/DataAssets";
-import { Label } from "recharts";
+import IconButton from "@mui/material/IconButton";
+import InfoIcon from "@mui/icons-material/Info";
+import Tooltip from "@mui/material/Tooltip";
+import TooltipNoWrap from "../../components/TooltipNoWrap";
 
 interface TechnicalAssetsTableProps {
   technicalAssetsList: TechnicalAssets[];
@@ -18,7 +20,7 @@ interface TechnicalAssetsTableProps {
 }
 
 const TechnicalAssetsTable: React.FC<TechnicalAssetsTableProps> = ({ technicalAssetsList, setTechnicalAssetsList, dataAssetsList }) => {
-  console.log("Data Assets in Technical Assets able => "+JSON.stringify(dataAssetsList))
+  console.log("Data Assets in Technical Assets able => " + JSON.stringify(dataAssetsList));
   const [rows, setRows] = useState<TechnicalAssets[]>(technicalAssetsList);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState<TechnicalAssets | null>(null);
@@ -109,6 +111,21 @@ const TechnicalAssetsTable: React.FC<TechnicalAssetsTableProps> = ({ technicalAs
         <Button color="primary" startIcon={<AddIcon />} onClick={handleAddClick}>
           Add TechnicalAssets
         </Button>
+        <TooltipNoWrap
+          arrow
+          placement="bottom"
+          title={
+            <div>
+              <p>How are the admin clients managed/protected against compromise?: "" </p>
+              <p>How are the development clients managed/protected against compromise?: Managed by XYZ </p>
+              <p>How are the build pipeline components managed/protected against compromise?: Managed by XYZ</p>
+            </div>
+          }
+        >
+          <IconButton>
+            <InfoIcon fontSize="small" />
+          </IconButton>
+        </TooltipNoWrap>
       </legend>
       <DataGrid
         rows={rows}

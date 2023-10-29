@@ -9,16 +9,16 @@ import RiskTrackingModal from "./RiskTrackingModal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
+import InfoIcon from "@mui/icons-material/Info";
+import Tooltip from "@mui/material/Tooltip";
+import TooltipNoWrap from "../../components/TooltipNoWrap";
 
 interface RiskTrackingTableProps {
   riskTrackingList: RiskTracking[];
   setRiskTrackingList: (newState: RiskTracking[]) => void;
 }
 
-const RiskTrackingTable: React.FC<RiskTrackingTableProps> = ({
-  riskTrackingList,
-  setRiskTrackingList,
-}) => {
+const RiskTrackingTable: React.FC<RiskTrackingTableProps> = ({ riskTrackingList, setRiskTrackingList }) => {
   const [rows, setRows] = useState<RiskTracking[]>(riskTrackingList);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState<RiskTracking | null>(null);
@@ -40,9 +40,7 @@ const RiskTrackingTable: React.FC<RiskTrackingTableProps> = ({
 
     if (selectedRow) {
       // Edit existing row
-      const updatedData = rows.map((row) =>
-        row.id === selectedRow.id ? editedData : row
-      );
+      const updatedData = rows.map((row) => (row.id === selectedRow.id ? editedData : row));
       setRiskTrackingList(updatedData);
       setRows(updatedData);
     } else {
@@ -108,19 +106,29 @@ const RiskTrackingTable: React.FC<RiskTrackingTableProps> = ({
         borderRadius: 1,
         "& .MuiDataGrid-columnHeader": {
           height: "70px",
-         
         },
       }}
       key={rows.length}
     >
       <legend>
-        <Button
-          color="primary"
-          startIcon={<AddIcon />}
-          onClick={handleAddClick}
-        >
+        <Button color="primary" startIcon={<AddIcon />} onClick={handleAddClick}>
           Add RiskTracking
         </Button>
+        <TooltipNoWrap
+          arrow
+          placement="bottom"
+          title={
+            <div>
+              <p>How are the admin clients managed/protected against compromise?: "" </p>
+              <p>How are the development clients managed/protected against compromise?: Managed by XYZ </p>
+              <p>How are the build pipeline components managed/protected against compromise?: Managed by XYZ</p>
+            </div>
+          }
+        >
+          <IconButton>
+            <InfoIcon fontSize="small" />
+          </IconButton>
+        </TooltipNoWrap>
       </legend>
       <DataGrid
         rows={rows}

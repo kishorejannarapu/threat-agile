@@ -1,23 +1,23 @@
 //@ts-ignore
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import SharedRuntimesModal from "./SharedRuntimeModal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import IconButton from "@mui/material/IconButton";
 import SharedRuntime from "../../types/SharedRuntime";
+import IconButton from "@mui/material/IconButton";
+import InfoIcon from "@mui/icons-material/Info";
+import Tooltip from "@mui/material/Tooltip";
+import TooltipNoWrap from "../../components/TooltipNoWrap";
 
 interface SharedRuntimesTableProps {
   sharedRuntimesList: SharedRuntime[];
   setSharedRuntimesList: (newState: SharedRuntime[]) => void;
 }
 
-const SharedRuntimesTable: React.FC<SharedRuntimesTableProps> = ({
-  sharedRuntimesList,
-  setSharedRuntimesList
-}) => {
+const SharedRuntimesTable: React.FC<SharedRuntimesTableProps> = ({ sharedRuntimesList, setSharedRuntimesList }) => {
   const [rows, setRows] = useState<SharedRuntime[]>(sharedRuntimesList);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState<SharedRuntime | null>(null);
@@ -33,15 +33,13 @@ const SharedRuntimesTable: React.FC<SharedRuntimesTableProps> = ({
 
   const handleSave = (editedData: SharedRuntime) => {
     if (editedData["id"] == undefined) {
-      editedData.id =editedData.name.split(" ").join("-");
+      editedData.id = editedData.name.split(" ").join("-");
       console.log("edited Data =" + JSON.stringify(editedData));
     }
 
     if (selectedRow) {
       // Edit existing row
-      const updatedSharedRuntimes = rows.map((row) =>
-        row.id === selectedRow.id ? editedData : row
-      );
+      const updatedSharedRuntimes = rows.map((row) => (row.id === selectedRow.id ? editedData : row));
       setSharedRuntimesList(updatedSharedRuntimes);
       setRows(updatedSharedRuntimes);
     } else {
@@ -103,19 +101,29 @@ const SharedRuntimesTable: React.FC<SharedRuntimesTableProps> = ({
         borderRadius: 1,
         "& .MuiDataGrid-columnHeader": {
           height: "70px",
-         
         },
       }}
       key={rows.length}
     >
       <legend>
-        <Button
-          color="primary"
-          startIcon={<AddIcon />}
-          onClick={handleAddClick}
-        >
+        <Button color="primary" startIcon={<AddIcon />} onClick={handleAddClick}>
           Add SharedRuntime
         </Button>
+        <TooltipNoWrap
+          arrow
+          placement="bottom"
+          title={
+            <div>
+              <p>How are the admin clients managed/protected against compromise?: "" </p>
+              <p>How are the development clients managed/protected against compromise?: Managed by XYZ </p>
+              <p>How are the build pipeline components managed/protected against compromise?: Managed by XYZ</p>
+            </div>
+          }
+        >
+          <IconButton>
+            <InfoIcon fontSize="small" />
+          </IconButton>
+        </TooltipNoWrap>
       </legend>
       <DataGrid
         rows={rows}

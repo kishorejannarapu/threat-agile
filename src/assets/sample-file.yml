@@ -114,8 +114,6 @@ tags_available:
 
 
 data_assets:
-
-
   Customer Contracts: &customer-contracts # this example shows the inheritance-like features of YAML
     id: customer-contracts
     description: Customer Contracts (PDF)

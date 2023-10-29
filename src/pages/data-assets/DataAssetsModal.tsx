@@ -9,6 +9,10 @@ import TextField from "@mui/material/TextField";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect } from "react";
 import DataAssets from "../../types/DataAssets";
+import IconButton from "@mui/material/IconButton";
+import InfoIcon from "@mui/icons-material/Info";
+import Tooltip from "@mui/material/Tooltip";
+import TooltipNoWrap from "../../components/TooltipNoWrap";
 
 interface DataAssetsModalProps {
   open: boolean;
@@ -17,14 +21,8 @@ interface DataAssetsModalProps {
   rowData: DataAssets;
 }
 
-const SecurityRequirementModal: React.FC<DataAssetsModalProps> = ({
-  open,
-  onClose,
-  onSave,
-  rowData,
-}) => {
-  const { register, handleSubmit, reset, setValue } =
-    useForm<DataAssets>({});
+const SecurityRequirementModal: React.FC<DataAssetsModalProps> = ({ open, onClose, onSave, rowData }) => {
+  const { register, handleSubmit, reset, setValue } = useForm<DataAssets>({});
 
   const handleSave: SubmitHandler<DataAssets> = (data) => {
     onSave(data);
@@ -38,115 +36,43 @@ const SecurityRequirementModal: React.FC<DataAssetsModalProps> = ({
         setValue(field, rowData[field]);
       });
     } else {
-      reset({
-      });
+      reset({});
     }
   }, [open]);
 
   return (
     <Dialog open={open} onClose={onClose}>
       <form onSubmit={handleSubmit(handleSave)}>
-        <DialogTitle>{rowData ? "Edit Row" : "Add Row"}</DialogTitle>
+        <DialogTitle>
+          {rowData ? "Edit Data Asset" : "Add Data Asset"}
+          <TooltipNoWrap
+            arrow
+            placement="bottom"
+            title={
+              <div>
+                <p>How are the admin clients managed/protected against compromise?: "" </p>
+                <p>How are the development clients managed/protected against compromise?: Managed by XYZ </p>
+                <p>How are the build pipeline components managed/protected against compromise?: Managed by XYZ</p>
+              </div>
+            }
+          >
+            <IconButton>
+              <InfoIcon fontSize="small" />
+            </IconButton>
+          </TooltipNoWrap>
+        </DialogTitle>
         <DialogContent>
-        <TextField
-            label="Name"
-            type="text"
-            {...register("name")}
-            fullWidth
-            size="medium"
-            focused
-            margin="normal"
-          />
-          <TextField
-            label="Description"
-            type="text"
-            {...register("description")}
-            fullWidth
-            size="medium"
-            focused
-            margin="normal"
-          />
-          <TextField
-            label="Usage"
-            type="text"
-            {...register("usage")}
-            fullWidth
-            size="medium"
-            focused
-            margin="normal"
-          />
-          <TextField
-            label="Tags"
-            type="text"
-            {...register("tags")}
-            fullWidth
-            size="medium"
-            focused
-          />
-          <TextField
-            label="Origin"
-            type="text"
-            {...register("origin")}
-            fullWidth
-            size="medium"
-            focused
-            margin="normal"
-          />
-          <TextField
-            label="Owner"
-            type="text"
-            {...register("owner")}
-            fullWidth
-            size="medium"
-            focused
-            margin="normal"
-
-          />
-          <TextField
-            label="Quantity"
-            type="text"
-            {...register("quantity")}
-            fullWidth
-            size="medium"
-            focused
-            margin="normal"
-          />
-          <TextField
-            label="Confidentiality"
-            type="text"
-            {...register("confidentiality")}
-            fullWidth
-            size="medium"
-            focused
-            margin="normal"
-          />
-          <TextField
-            label="Integrity"
-            type="text"
-            {...register("integrity")}
-            fullWidth
-            margin="normal"
-            size="medium"
-            focused
-          />
-          <TextField
-            label="Availability"
-            type="text"
-            {...register("availability")}
-            fullWidth
-            size="medium"
-            focused
-            margin="normal"
-          />
-          <TextField
-            label="Justification"
-            type="text"
-            {...register("justification_cia_rating")}
-            fullWidth
-            size="medium"
-            focused
-            margin="normal"
-          />
+          <TextField label="Name" type="text" {...register("name")} fullWidth size="medium" focused margin="normal" />
+          <TextField label="Description" type="text" {...register("description")} fullWidth size="medium" focused margin="normal" />
+          <TextField label="Usage" type="text" {...register("usage")} fullWidth size="medium" focused margin="normal" />
+          <TextField label="Tags" type="text" {...register("tags")} fullWidth size="medium" focused />
+          <TextField label="Origin" type="text" {...register("origin")} fullWidth size="medium" focused margin="normal" />
+          <TextField label="Owner" type="text" {...register("owner")} fullWidth size="medium" focused margin="normal" />
+          <TextField label="Quantity" type="text" {...register("quantity")} fullWidth size="medium" focused margin="normal" />
+          <TextField label="Confidentiality" type="text" {...register("confidentiality")} fullWidth size="medium" focused margin="normal" />
+          <TextField label="Integrity" type="text" {...register("integrity")} fullWidth margin="normal" size="medium" focused />
+          <TextField label="Availability" type="text" {...register("availability")} fullWidth size="medium" focused margin="normal" />
+          <TextField label="Justification" type="text" {...register("justification_cia_rating")} fullWidth size="medium" focused margin="normal" />
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary">

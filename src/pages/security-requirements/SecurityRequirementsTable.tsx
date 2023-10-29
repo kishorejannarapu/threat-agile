@@ -1,5 +1,5 @@
 //@ts-ignore
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -8,16 +8,16 @@ import SecurityRequirementsModal from "./SecurityRequirementModal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
+import InfoIcon from "@mui/icons-material/Info";
+import Tooltip from "@mui/material/Tooltip";
+import TooltipNoWrap from "../../components/TooltipNoWrap";
 
 interface SecurityRequirementTableProps {
   securityRequirementsList: SecurityRequirement[];
   setSecurityRequirementsList: (newState: SecurityRequirement[]) => void;
 }
 
-const SecurityRequirementTable: React.FC<SecurityRequirementTableProps> = ({
-  securityRequirementsList,
-  setSecurityRequirementsList
-}) => {
+const SecurityRequirementTable: React.FC<SecurityRequirementTableProps> = ({ securityRequirementsList, setSecurityRequirementsList }) => {
   const [rows, setRows] = useState<SecurityRequirement[]>(securityRequirementsList);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState<SecurityRequirement | null>(null);
@@ -33,15 +33,13 @@ const SecurityRequirementTable: React.FC<SecurityRequirementTableProps> = ({
 
   const handleSave = (editedData: SecurityRequirement) => {
     if (editedData["id"] == undefined) {
-      editedData.id =editedData.name.split(" ").join("-");
+      editedData.id = editedData.name.split(" ").join("-");
       console.log("edited Data =" + JSON.stringify(editedData));
     }
 
     if (selectedRow) {
       // Edit existing row
-      const updatedSecurityRequirements = rows.map((row) =>
-        row.id === selectedRow.id ? editedData : row
-      );
+      const updatedSecurityRequirements = rows.map((row) => (row.id === selectedRow.id ? editedData : row));
       setSecurityRequirementsList(updatedSecurityRequirements);
       setRows(updatedSecurityRequirements);
     } else {
@@ -103,19 +101,29 @@ const SecurityRequirementTable: React.FC<SecurityRequirementTableProps> = ({
         borderRadius: 1,
         "& .MuiDataGrid-columnHeader": {
           height: "70px",
-         
         },
       }}
       key={rows.length}
     >
       <legend>
-        <Button
-          color="primary"
-          startIcon={<AddIcon />}
-          onClick={handleAddClick}
-        >
+        <Button color="primary" startIcon={<AddIcon />} onClick={handleAddClick}>
           Add SecurityRequirement
         </Button>
+        <TooltipNoWrap
+          arrow
+          placement="bottom"
+          title={
+            <div>
+              <pre>Input Validation: Strict input validation is required to reduce the overall attack surface.</pre>
+              <pre>Securing Administrative Access: Administrative access must be secured with strong encryption and multi-factor authentication.</pre>
+              <pre>EU-DSGVO: Mandatory EU-Datenschutzgrundverordnung</pre>
+            </div>
+          }
+        >
+          <IconButton>
+            <InfoIcon fontSize="small" />
+          </IconButton>
+        </TooltipNoWrap>
       </legend>
       <DataGrid
         rows={rows}

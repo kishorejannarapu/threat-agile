@@ -1,5 +1,5 @@
 //@ts-ignore
-import Recat from 'react';
+import Recat from "react";
 import { useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
@@ -9,16 +9,16 @@ import QuestionsModal from "./TagsModal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
+import InfoIcon from "@mui/icons-material/Info";
+import Tooltip from "@mui/material/Tooltip";
+import TooltipNoWrap from "../../components/TooltipNoWrap";
 
 interface TagssTableProps {
   tagsList: Tag[];
   setTagsList: (newState: Tag[]) => void;
 }
 
-const TagsTable: React.FC<TagssTableProps> = ({
-  tagsList,
-  setTagsList,
-}) => {
+const TagsTable: React.FC<TagssTableProps> = ({ tagsList, setTagsList }) => {
   const [rows, setRows] = useState<Tag[]>(tagsList);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState<Tag | null>(null);
@@ -34,15 +34,13 @@ const TagsTable: React.FC<TagssTableProps> = ({
 
   const handleSave = (editedData: Tag) => {
     if (editedData["id"] == undefined) {
-      editedData.id =editedData.tag;
+      editedData.id = editedData.tag;
       console.log("edited Data =" + JSON.stringify(editedData));
     }
 
     if (selectedRow) {
       // Edit existing row
-      const updatedData = rows.map((row) =>
-        row.id === selectedRow.id ? editedData : row
-      );
+      const updatedData = rows.map((row) => (row.id === selectedRow.id ? editedData : row));
       setTagsList(updatedData);
       setRows(updatedData);
     } else {
@@ -103,19 +101,29 @@ const TagsTable: React.FC<TagssTableProps> = ({
         borderRadius: 1,
         "& .MuiDataGrid-columnHeader": {
           height: "70px",
-         
         },
       }}
       key={rows.length}
     >
       <legend>
-        <Button
-          color="primary"
-          startIcon={<AddIcon />}
-          onClick={handleAddClick}
-        >
+        <Button color="primary" startIcon={<AddIcon />} onClick={handleAddClick}>
           Add Tag
         </Button>
+        <TooltipNoWrap
+          arrow
+          placement="bottom"
+          title={
+            <div>
+              <p>How are the admin clients managed/protected against compromise?: "" </p>
+              <p>How are the development clients managed/protected against compromise?: Managed by XYZ </p>
+              <p>How are the build pipeline components managed/protected against compromise?: Managed by XYZ</p>
+            </div>
+          }
+        >
+          <IconButton>
+            <InfoIcon fontSize="small" />
+          </IconButton>
+        </TooltipNoWrap>
       </legend>
       <DataGrid
         rows={rows}

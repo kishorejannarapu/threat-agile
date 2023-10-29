@@ -1,7 +1,7 @@
 //@ts-ignore
 import React from "react";
 import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, Tab, TextField } from "@mui/material";
-import { Controller, useForm } from "react-hook-form";
+import { Control, Controller, useForm } from "react-hook-form";
 import QuestionsTable from "./questions/QuestionsTable.tsx";
 import { useState } from "react";
 import Typography from "@mui/material/Typography";
@@ -29,10 +29,10 @@ import TrustedBoundary from "../types/TrustedBoundary.tsx";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { TabContext } from "@mui/lab";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import DateField from "../components/DateField.tsx";
 
 type FormValues = {
-  firstName: string;
+  date: Date;
 };
 
 export default function ThreatAgile() {
@@ -58,8 +58,18 @@ export default function ThreatAgile() {
   };
 
   const onSubmit = (data: FormValues) => {
-    setFormData({ ...data, questions, abuse_cases: abuseCases });
-    console.log({ ...data, questions, abuse_cases: abuseCases });
+    const formData = { ...data, date: data.date ? data.date.toISOString().split("T")[0] : null, questions, abuse_cases: abuseCases,
+    security_requirements:securityRequirementsList,
+    tags_available:tagsList,
+    data_assets:dataAssetsList,
+    technical_assets:technicalAssetsList,
+    trust_boundaries:trustedBoundariesList,
+    shared_runtimes:sharedRuntimesList,
+    individual_risk_categories:individualRiskCategoriesList,
+    risk_tracking:riskTrackingList
+   };
+    setFormData(formData);
+    console.log(formData);
   };
 
   return (
@@ -83,30 +93,7 @@ export default function ThreatAgile() {
           <Grid item xs={12} md={6}>
             <FormControl fullWidth focused>
               <InputLabel>Date of the model</InputLabel>
-              <Controller
-                control={control}
-                name="date"
-                defaultValue="null"
-                render={({ field: { ref, onBlur, name, onChange, ...field }, fieldState }) => (
-                  <DatePicker
-                    {...field}
-                    inputRef={ref}
-                    label="Date of the model"
-                    onChange={onChange}
-                    format="YYYY-MM-DD"
-                    slotProps={{
-                      textField: {
-                        focused:true,
-                        size:"small",
-                        onBlur,
-                        name,
-                        error: !!fieldState?.error,
-                        helperText: fieldState?.error?.message,
-                      },
-                    }}
-                  />
-                )}
-              />
+              <DateField name="date" label="Date of the Model" control={control} />
             </FormControl>
           </Grid>
           <Grid item xs={12} md={6}>

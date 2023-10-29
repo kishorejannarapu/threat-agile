@@ -8,16 +8,16 @@ import DataAssetsModal from "./DataAssetsModal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
+import InfoIcon from "@mui/icons-material/Info";
+import Tooltip from "@mui/material/Tooltip";
+import TooltipNoWrap from "../../components/TooltipNoWrap";
 
 interface DataAssetsTableProps {
   dataAssetsList: DataAssets[];
   setDataAssetsList: (newState: DataAssets[]) => void;
 }
 
-const DataAssetsTable: React.FC<DataAssetsTableProps> = ({
-  dataAssetsList,
-  setDataAssetsList,
-}) => {
+const DataAssetsTable: React.FC<DataAssetsTableProps> = ({ dataAssetsList, setDataAssetsList }) => {
   const [rows, setRows] = useState<DataAssets[]>(dataAssetsList);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState<DataAssets | null>(null);
@@ -39,9 +39,7 @@ const DataAssetsTable: React.FC<DataAssetsTableProps> = ({
 
     if (selectedRow) {
       // Edit existing row
-      const updatedDataAssets = rows.map((row) =>
-        row.id === selectedRow.id ? editedData : row
-      );
+      const updatedDataAssets = rows.map((row) => (row.id === selectedRow.id ? editedData : row));
       setDataAssetsList(updatedDataAssets);
       setRows(updatedDataAssets);
     } else {
@@ -82,7 +80,7 @@ const DataAssetsTable: React.FC<DataAssetsTableProps> = ({
     { field: "quantity", headerName: "Quantity" },
     {
       field: "confidentiality",
-      headerName: "Confidentiality",//@ts-ignore
+      headerName: "Confidentiality", //@ts-ignore
     },
     //@ts-ignore
     { field: "integrity", headerName: "Integrity" },
@@ -90,7 +88,7 @@ const DataAssetsTable: React.FC<DataAssetsTableProps> = ({
     { field: "availability", headerName: "Availability" },
     {
       field: "justification_cia_rating",
-      headerName: "Justification",//@ts-ignore
+      headerName: "Justification", //@ts-ignore
     },
     {
       field: "actions",
@@ -121,20 +119,30 @@ const DataAssetsTable: React.FC<DataAssetsTableProps> = ({
         borderRadius: 1,
         "& .MuiDataGrid-columnHeader": {
           height: "70px",
-         
         },
-        width: '100%'
+        width: "100%",
       }}
       key={rows.length}
     >
       <legend>
-        <Button
-          color="primary"
-          startIcon={<AddIcon />}
-          onClick={handleAddClick}
-        >
+        <Button color="primary" startIcon={<AddIcon />} onClick={handleAddClick}>
           Add DataAssets
         </Button>
+        <TooltipNoWrap
+          arrow
+          placement="bottom"
+          title={
+            <div>
+              <p>How are the admin clients managed/protected against compromise?: "" </p>
+              <p>How are the development clients managed/protected against compromise?: Managed by XYZ </p>
+              <p>How are the build pipeline components managed/protected against compromise?: Managed by XYZ</p>
+            </div>
+          }
+        >
+          <IconButton>
+            <InfoIcon fontSize="small" />
+          </IconButton>
+        </TooltipNoWrap>
       </legend>
       <DataGrid
         rows={rows}
@@ -153,7 +161,7 @@ const DataAssetsTable: React.FC<DataAssetsTableProps> = ({
         disableColumnSelector
         disableDensitySelector
         disableVirtualization
-        sx={{maxWidth:"100%"}}
+        sx={{ maxWidth: "100%" }}
       />
       <DataAssetsModal
         open={isModalOpen}

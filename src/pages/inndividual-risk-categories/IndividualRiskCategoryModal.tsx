@@ -9,6 +9,10 @@ import TextField from "@mui/material/TextField";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect } from "react";
 import IndividualRiskCategory from "../../types/IndividualRiskCategory";
+import IconButton from "@mui/material/IconButton";
+import InfoIcon from "@mui/icons-material/Info";
+import Tooltip from "@mui/material/Tooltip";
+import TooltipNoWrap from "../../components/TooltipNoWrap";
 
 interface IndividualRiskCategoryModalType {
   open: boolean;
@@ -17,12 +21,7 @@ interface IndividualRiskCategoryModalType {
   rowData: IndividualRiskCategory;
 }
 
-const IndividualRiskCategorysModal: React.FC<IndividualRiskCategoryModalType> = ({
-  open,
-  onClose,
-  onSave,
-  rowData,
-}) => {
+const IndividualRiskCategorysModal: React.FC<IndividualRiskCategoryModalType> = ({ open, onClose, onSave, rowData }) => {
   const { register, handleSubmit, reset, setValue } = useForm<IndividualRiskCategory>({});
 
   const handleSave: SubmitHandler<IndividualRiskCategory> = (data) => {
@@ -44,26 +43,27 @@ const IndividualRiskCategorysModal: React.FC<IndividualRiskCategoryModalType> = 
   return (
     <Dialog open={open} onClose={onClose}>
       <form onSubmit={handleSubmit(handleSave)}>
-        <DialogTitle>{rowData ? "Edit Row" : "Add Row"}</DialogTitle>
+        <DialogTitle>
+          {rowData ? "Edit Individual Risk Category" : "Add Individual Risk Category"}
+          <TooltipNoWrap
+            arrow
+            placement="bottom"
+            title={
+              <div>
+                <p>How are the admin clients managed/protected against compromise?: "" </p>
+                <p>How are the development clients managed/protected against compromise?: Managed by XYZ </p>
+                <p>How are the build pipeline components managed/protected against compromise?: Managed by XYZ</p>
+              </div>
+            }
+          >
+            <IconButton>
+              <InfoIcon fontSize="small" />
+            </IconButton>
+          </TooltipNoWrap>
+        </DialogTitle>
         <DialogContent>
-          <TextField
-            label="Name"
-            type="text"
-            {...register("name")}
-            fullWidth
-            size="medium"
-            focused
-            margin="normal"
-          />
-          <TextField
-            label="Impact"
-            type="text"
-            {...register("impact")}
-            fullWidth
-            size="medium"
-            focused
-            margin="normal"
-          />
+          <TextField label="Name" type="text" {...register("name")} fullWidth size="medium" focused margin="normal" />
+          <TextField label="Impact" type="text" {...register("impact")} fullWidth size="medium" focused margin="normal" />
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary">

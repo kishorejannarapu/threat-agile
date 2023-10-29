@@ -9,16 +9,16 @@ import TrustedBoundaryModal from "./TrustedBoundaryModal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
+import InfoIcon from "@mui/icons-material/Info";
+import Tooltip from "@mui/material/Tooltip";
+import TooltipNoWrap from "../../components/TooltipNoWrap";
 
 interface TrustedBoundaryTableProps {
   trustedBoundariesList: TrustedBoundary[];
   setTrustedBoundariesList: (newState: TrustedBoundary[]) => void;
 }
 
-const TrustedBoundariesTable: React.FC<TrustedBoundaryTableProps> = ({
-  trustedBoundariesList,
-  setTrustedBoundariesList,
-}) => {
+const TrustedBoundariesTable: React.FC<TrustedBoundaryTableProps> = ({ trustedBoundariesList, setTrustedBoundariesList }) => {
   const [rows, setRows] = useState<TrustedBoundary[]>(trustedBoundariesList);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState<TrustedBoundary | null>(null);
@@ -40,9 +40,7 @@ const TrustedBoundariesTable: React.FC<TrustedBoundaryTableProps> = ({
 
     if (selectedRow) {
       // Edit existing row
-      const updatedData = rows.map((row) =>
-        row.id === selectedRow.id ? editedData : row
-      );
+      const updatedData = rows.map((row) => (row.id === selectedRow.id ? editedData : row));
       setTrustedBoundariesList(updatedData);
       setRows(updatedData);
     } else {
@@ -108,19 +106,29 @@ const TrustedBoundariesTable: React.FC<TrustedBoundaryTableProps> = ({
         borderRadius: 1,
         "& .MuiDataGrid-columnHeader": {
           height: "70px",
-         
         },
       }}
       key={rows.length}
     >
       <legend>
-        <Button
-          color="primary"
-          startIcon={<AddIcon />}
-          onClick={handleAddClick}
-        >
+        <Button color="primary" startIcon={<AddIcon />} onClick={handleAddClick}>
           Add TrustedBoundary
         </Button>
+        <TooltipNoWrap
+          arrow
+          placement="bottom"
+          title={
+            <div>
+              <p>How are the admin clients managed/protected against compromise?: "" </p>
+              <p>How are the development clients managed/protected against compromise?: Managed by XYZ </p>
+              <p>How are the build pipeline components managed/protected against compromise?: Managed by XYZ</p>
+            </div>
+          }
+        >
+          <IconButton>
+            <InfoIcon fontSize="small" />
+          </IconButton>
+        </TooltipNoWrap>
       </legend>
       <DataGrid
         rows={rows}
