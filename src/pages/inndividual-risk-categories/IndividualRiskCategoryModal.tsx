@@ -11,7 +11,6 @@ import { useEffect } from "react";
 import IndividualRiskCategory from "../../types/IndividualRiskCategory";
 import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
-import Tooltip from "@mui/material/Tooltip";
 import TooltipNoWrap from "../../components/TooltipNoWrap";
 
 interface IndividualRiskCategoryModalType {

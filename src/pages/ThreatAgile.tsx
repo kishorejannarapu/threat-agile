@@ -1,7 +1,7 @@
 //@ts-ignore
 import React, { useRef } from "react";
 import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, Tab, TextField } from "@mui/material";
-import { Control, Controller, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import QuestionsTable from "./questions/QuestionsTable.tsx";
 import { useState } from "react";
 import Typography from "@mui/material/Typography";
@@ -39,7 +39,7 @@ type FormValues = {
 
 export default function ThreatAgile() {
   const [formData, setFormData] = useState({});
-  const { register, handleSubmit, control, formState } = useForm<any>();
+  const { register, handleSubmit, control } = useForm<any>();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [abuseCases, setAbuseCases] = useState<AbuseCase[]>([]);
   const [securityRequirementsList, setSecurityRequirementsList] = useState<SecurityRequirement[]>([]);

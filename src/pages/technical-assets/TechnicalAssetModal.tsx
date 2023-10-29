@@ -13,7 +13,6 @@ import { FormControl, InputLabel, MenuItem, Select, OutlinedInput } from "@mui/m
 import DropDownOptions from "../../types/DropDownOptions";
 import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
-import Tooltip from "@mui/material/Tooltip";
 import TooltipNoWrap from "../../components/TooltipNoWrap";
 
 interface TechnicalAssetsModalProps {
@@ -137,11 +136,10 @@ const TechnicalAssetsModal: React.FC<TechnicalAssetsModalProps> = ({ open, onClo
             focused
           />
 
-          <FormControl fullWidth focused margin="normal">
+          <FormControl fullWidth focused margin="normal" size="small">
             <InputLabel>Data Assets Processed</InputLabel>
             <Controller
               name="data_assets_processed"
-              size="small"
               control={control}
               defaultValue={[]}
               render={({ field }) => (

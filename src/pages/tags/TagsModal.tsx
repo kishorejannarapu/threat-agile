@@ -10,7 +10,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import Tag from "../../types/Tag";
 import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
-import Tooltip from "@mui/material/Tooltip";
 import TooltipNoWrap from "../../components/TooltipNoWrap";
 
 interface TagModalType {
