@@ -1,0 +1,53 @@
+.navbar {
+    display: flex;
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+  }
+
+  .navbar-item {
+    margin-right: 15px;
+    position: relative;
+  }
+
+  .navbar-item a {
+    text-decoration: none;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    display: block;
+  }
+
+  .navbar-item:hover a,
+  .navbar-item:focus-within a {
+    background-color: #555;
+  }
+
+  .submenu {
+    display: none;
+    position: absolute;
+    background-color: #777; /* Adjust to your desired submenu background color */
+    padding: 10px;
+    border-radius: 5px;
+    top: 100%;
+    left: 0;
+  }
+
+  .navbar-item:hover .submenu,
+  .navbar-item:focus-within .submenu {
+    display: block;
+  }
+
+  .submenu a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 5px;
+    transition: background-color 0.3s;
+    background-color: #888; /* Different default color for submenu items */
+  }
+
+  .submenu a:hover {
+    background-color: #666; /* Adjust to your desired submenu hover color */
+  }

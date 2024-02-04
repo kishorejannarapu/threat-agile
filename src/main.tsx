@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <StyledEngineProvider injectFirst>
         <MyThemeProvider>
-          <App />
+            <App />
         </MyThemeProvider>
       </StyledEngineProvider>
     </LocalizationProvider>
