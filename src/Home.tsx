@@ -39,49 +39,6 @@ interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})<AppBarProps>(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(["width", "margin"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  "& .MuiDrawer-paper": {
-    position: "relative",
-    whiteSpace: "nowrap",
-    width: drawerWidth,
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    boxSizing: "border-box",
-    ...(!open && {
-      overflowX: "hidden",
-      transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      width: theme.spacing(7),
-      [theme.breakpoints.up("sm")]: {
-        width: theme.spacing(9),
-      },
-    }),
-  },
-}));
 
 export default function Home() {
   const [open, setOpen] = React.useState(false);
@@ -93,59 +50,26 @@ export default function Home() {
   const methods = useForm(); // Create a form instance
 
   return (
-    <Box sx={{ display: "flex" }}>
+    
+    <Box sx={{ display: "flex",flexDirection:'column' }}>
       <CssBaseline />
-      <AppBar position="absolute" open={open}>
-        <Toolbar
-          sx={{
-            pr: "24px", // keep right padding when drawer closed
-          }}
-        >
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={toggleDrawer}
-            sx={{
-              marginRight: "36px",
-              ...(open && { display: "none" }),
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
+      <MuiAppBar style={{position:"sticky",top:"0", display:"flex",flexDirection:'row'}}>
           <Typography component="h1" variant="h4" color="inherit" noWrap sx={{ flexGrow: 1 }}>
             Threat Agile
           </Typography>
           <HorizontalMenubar/>
           <DarkModeSwitch />
           {/*<ThemeColorShuffle />*/}
-        </Toolbar>
-      </AppBar>
-      <Drawer variant="permanent" open={open}>
-        <Toolbar
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            px: [1],
-          }}
-        >
-          <IconButton onClick={toggleDrawer}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </Toolbar>
-        <Divider />
-      </Drawer>
+      </MuiAppBar>
       <Box
         component="main"
         sx={{
           //backgroundColor: (theme) => (theme.palette.mode === "light" ? theme.palette.grey[100] : theme.palette.grey[900]),
           flexGrow: 1,
-          height: "100vh",
           overflow: "auto",
+          minHeight:'100vh'
         }}
       >
-        <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4, minHeight: "520px" }}>
           <FormProvider {...methods}>
             <div>
@@ -157,5 +81,6 @@ export default function Home() {
         <Copyright sx={{ pt: 4 }} />
       </Box>
     </Box>
+    
   );
 }

@@ -23,6 +23,7 @@
     "allowUmdGlobalAccess": true,
   },
   "include": ["src"],
+  "exclude" : ["src/**/*.spec.ts"],
   "references": [{ "path": "./tsconfig.node.json" }],
   "types": ["vitest/globals"],
 }

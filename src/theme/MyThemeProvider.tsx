@@ -7,8 +7,8 @@ import { ThemeProvider, createTheme, ThemeOptions } from "@mui/material/styles";
 import { color as ThemeColors } from "./index";
 
 export const ThemeContext = React.createContext({
-  toggleColorMode: () => {},
-  shuffleColorTheme: () => {},
+  toggleColorMode: () => { },
+  shuffleColorTheme: () => { },
 });
 
 type MyThemeProviderProps = {
@@ -18,13 +18,11 @@ type MyThemeProviderProps = {
 export default function MyThemeProvider(props: MyThemeProviderProps) {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
-  const [mode, setMode] = React.useState<"light" | "dark">(
-    prefersDarkMode ? "dark" : "light"
-  );
+  const [mode, setMode] = React.useState<"light" | "dark">("light");
   const [theme, setTheme] = React.useState<0 | 1 | 2 | 3>(0);
 
   useEffect(() => {
-    setMode(prefersDarkMode ? "dark" : "light");
+    setMode(prefersDarkMode ? "light" : "dark");
   }, [prefersDarkMode]);
 
   const colorMode = React.useMemo(

@@ -7,6 +7,35 @@ const defaultLight = createTheme({
   palette: {
     mode: "light",
   },
+  components: {
+    MuiInputLabel: {
+      styleOverrides: {
+        root: { // Styles for all `InputLabel` components
+          color: '#333',
+          fontSize: '16px',
+          fontWeight: 'bold',
+          'label + &': {
+            marginTop: 8,
+            marginBottom: 8
+          }
+        },
+      },
+    },
+    MuiFormControl: {
+      styleOverrides: {
+        root: {
+          height: '56px',
+        },
+      }
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          height: '12px !important',
+        },
+      }
+    },
+  }
 });
 
 const defaultDark = createTheme({
@@ -19,8 +48,8 @@ export const theme: AppTheme = {
   dark: {
     palette: {
       ...defaultDark.palette,
-      primary:{main: '#43d4cb'},
-      background: { default: "#121212", paper:"#121212"  },
+      primary: { main: '#43d4cb' },
+      background: { default: "#121212", paper: "#121212" },
       upvote: palette.augmentColor({
         color: {
           main: "#66bb6a",
@@ -50,7 +79,7 @@ export const theme: AppTheme = {
   light: {
     palette: {
       ...defaultLight.palette,
-      primary:{main: '#43d4cb'},
+      primary: { main: '#43d4cb' },
       upvote: palette.augmentColor({
         color: {
           main: "#2e7d32",
